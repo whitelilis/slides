@@ -1,0 +1,33 @@
+// -*- mode: graphviz-dot ;-*-
+graph {
+        //node[shape=box, color=red, style=solid] //monitors
+        subgraph cluster_rack1{
+                label="rack 1"
+                NN[color=red]
+                RM[color=red]
+                zk1[color=blue]
+                balancer
+                client1[color=green]
+                other_slaves1[label="slaves......"]
+        }
+
+        subgraph cluster_rack2{
+                label="rack 2"
+                NN_bak[color=red]
+                RM_bak[color=red]
+                zk2[color=blue]
+                client2[color=green]
+                other_slaves2[label="slaves......"]
+        }
+
+        subgraph cluster_rack3{
+                label="rack 3"
+                zk3[color=blue]
+                other_slaves3[label="slaves......"]
+        }
+
+        NN--zk1--NN_bak
+        NN--zk2--NN_bak
+        NN--zk3--NN_bak
+
+}
