@@ -1,0 +1,53 @@
+% Written by DVItoMP, Version 0.64/color (Web2C 7.5.5)
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="gbksong46";
+_s(char176,_n0,1.00000,0.0000,0.0000,);
+_n1="gbksong54";
+_s("(",_n1,1.00000,9.9626,0.0000,);
+_n2="gbksong45";
+_s("8",_n2,1.00000,19.9253,0.0000,);
+setbounds _p to (0,-1.0859)--(29.8879,-1.0859)--
+ (29.8879,8.2092)--(0,8.2092)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n3="gbksong59";
+_s("e",_n3,1.00000,0.0000,0.0000,);
+_n0="gbksong46";
+_s("C",_n0,1.00000,9.9626,0.0000,);
+_n4="gbksong56";
+_s("q",_n4,1.00000,19.9253,0.0000,);
+setbounds _p to (0,-1.0461)--(29.8879,-1.0461)--
+ (29.8879,8.1694)--(0,8.1694)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n1="gbksong54";
+_s(char254,_n1,1.00000,0.0000,0.0000,);
+_n0="gbksong46";
+_s("C",_n0,1.00000,9.9626,0.0000,);
+_n4="gbksong56";
+_s("q",_n4,1.00000,19.9253,0.0000,);
+setbounds _p to (0,-1.0461)--(29.8879,-1.0461)--
+ (29.8879,8.1694)--(0,8.1694)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n5="cmr10";
+_s("1",_n5,1.00000,231.1333,-1078.9539,);
+setbounds _p to (0,-1.0461)--(29.8879,-1.0461)--
+ (29.8879,8.1694)--(0,8.1694)--cycle;
+_p endgroup
+mpxbreak

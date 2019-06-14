@@ -1,0 +1,148 @@
+module RoughSet where
+
+import qualified Data.List as L
+import qualified Data.Set as S
+import qualified Data.Map as M
+import qualified System.IO.UTF8 as U
+import Prelude hiding (readFile, writeFile)
+
+type Attribute = String
+type Value     = String
+type Element   = M.Map Attribute Value
+
+type Rule = (M.Map Attribute Value, M.Map Attribute Value)
+type MayRule = Rule
+type DecisionAttribute = (S.Set Attribute, S.Set Attribute)
+
+data RoughSet = RoughSet{
+        attributes :: DecisionAttribute,
+        elements   :: S.Set Element
+} deriving Show
+
+combination                   :: [a] -> [[a]]
+combination []                =  [[]]
+combination (x:xs)            =  L.sortBy (\x y -> compare (length x) (length y)) $ (map ([x] ++ ) (combination xs) )++ (combination xs)
+
+genAttributeArray :: RoughSet -> [DecisionAttribute]
+genAttributeArray rs = [ (S.fromList i, commonDec) | i <- filter (\x -> length x > 0) (combination (S.toList conditions)) ] where
+        (conditions, commonDec) = attributes rs
+
+covered :: Rule -> Element -> Bool
+covered (c, d) e = c `M.isSubmapOf` e && d `M.isSubmapOf` e 
+
+onceRule :: RoughSet -> DecisionAttribute -> [Rule]
+onceRule rs d | elements rs == S.empty = []
+              | otherwise              = filterMayRule $ generateMayRule rs d
+
+rules' :: RoughSet -> [DecisionAttribute] -> [Rule]
+rules' rs []                                = []
+rules' rs (d:ds) | elements rs == S.empty   = []
+                 | otherwise                = sigRule ++ (rules' rs' ds) where
+                        rs'     = notCovedRoughSet rs sigRule
+                        sigRule = onceRule rs d
+
+sigNotCoverd :: RoughSet -> Rule -> RoughSet
+sigNotCoverd rs r = RoughSet (attributes rs) restElements where
+        restElements = S.filter (not . (covered r)) (elements rs)
+
+notCovedRoughSet :: RoughSet -> [Rule] -> RoughSet
+notCovedRoughSet rs []       = rs
+notCovedRoughSet rs (ru:rus) = notCovedRoughSet (sigNotCoverd rs ru) rus
+
+rules :: RoughSet -> [Rule]
+rules rs | elements rs == S.empty      = []
+         | otherwise =  rules' rs (genAttributeArray rs)
+
+elementShow :: Element -> String
+elementShow e = foldr (++) "" $ M.elems $ M.mapWithKey (\k x -> k ++ ":" ++ x ++ " ") e
+
+descRule :: Rule -> String
+descRule (c, d) =  cs ++ "==> " ++ ds where
+        cs = elementShow c
+        ds = elementShow d
+
+coverRate :: RoughSet -> [Rule] -> Double
+coverRate rs r = 1.0 - ncSize / allSize where
+        ncSize  = fromIntegral $ S.size $ elements $ notCovedRoughSet rs r
+        allSize = fromIntegral $ S.size $ elements rs where
+
+ruleLength :: Rule -> Int
+ruleLength (c, d) = M.size c + M.size d
+
+meanLength :: RoughSet -> [Rule] -> Double
+meanLength rs r = rlen / (allSize - ncSize) where
+        rlen    = fromIntegral $ sum $ map ruleLength r
+        ncSize  = fromIntegral $ S.size $ elements $ notCovedRoughSet rs r
+        allSize = fromIntegral $ S.size $ elements rs
+
+genAttributeCombine :: DecisionAttribute -> [DecisionAttribute]
+genAttributeCombine (x, y) = [(kx,y) | kx <- subx] where
+        subx = map (S.fromList) $ filter (\x -> length x > 0) $ combination $ S.toList x
+
+subValue :: Element -> DecisionAttribute -> MayRule
+subValue ele (consions, dections) = (conValue, decValue) where
+        conValue = fst ( M.partitionWithKey (\k _ -> k `S.member` consions) ele)
+        decValue = fst ( M.partitionWithKey (\k _ -> k `S.member` dections) ele)
+
+generateMayRule :: RoughSet -> DecisionAttribute -> [MayRule]
+{-to list ?-}
+generateMayRule rs dec = S.toList ( S.map (`subValue` dec) (elements rs))   
+
+filterMayRule :: [MayRule] -> [Rule]
+filterMayRule mrs = [ head r | r <- L.groupBy conSame (L.sortBy conOrd mrs), length r == 1] where
+        conSame x y =  (fst x) == (fst y)
+        conOrd  x y = compare (fst x) (fst y)
+
+allNeeded :: RoughSet -> (Int, [String], Double, Double)
+allNeeded rs = (length r, map descRule r, cr, ml) where
+        r = rules rs
+        cr = coverRate rs r
+        ml = meanLength rs r
+
+lineJoin = concatMap (\x -> x ++ "\n")
+
+writable :: (Int, [String], Double, Double) -> String
+writable (i, ss, d1, d2) = lineJoin [ lineJoin ss, "rules count: " ++ show i,"coverd rate: " ++ show d1, "rules mean length: " ++ show d2]
+
+buildRouset :: String -> RoughSet
+buildRouset allStr = RoughSet atts eles where
+        allLines  = lines allStr 
+        firstLine = head allLines
+        {-eleLine   = tail allLines-}
+        eleLine   = tail $ tail $ allLines
+        {-attributes-}
+        allAtts   = words firstLine
+        atts      = (S.fromList (init allAtts), S.fromList [last allAtts])
+        {-elements-}
+        vals      = map words eleLine
+        eles      = S.fromList $ map M.fromList $ map (zip allAtts) vals 
+
+allFromFile inputfile = do
+        input <- U.readFile inputfile
+        U.writeFile (inputfile ++ ".rst") $ writable $ allNeeded $ buildRouset input
+
+{-for test-}
+
+t_atts = ["name", "age", "sex"] :: [Attribute]
+t_dec = (S.fromList(["name", "age"]), S.fromList(["sex"]))
+
+t_val1 = ["whitelilis", "27", "male"] :: [Value]
+t_s1 = M.fromList(zip t_atts t_val1) :: Element
+
+t_val2 = ["wizard", "27", "male"] :: [Value]
+t_s2 = M.fromList(zip t_atts t_val2) :: Element
+
+t_val3 = ["mantis", "26", "male"] :: [Value]
+t_s3 = M.fromList(zip t_atts t_val3) :: Element
+
+t_val4 = ["dismask", "26", "male"] :: [Value]
+t_s4 = M.fromList(zip t_atts t_val4) :: Element
+
+t_val5 = ["alex", "26", "female"] :: [Value]
+t_s5 = M.fromList(zip t_atts t_val5) :: Element
+
+t_depname = (S.fromList(["name"]), S.fromList(["sex"]))
+t_depage = (S.fromList(["age"]), S.fromList(["sex"]))
+t_rs = RoughSet t_dec (S.fromList [t_s1, t_s2, t_s3, t_s4, t_s5])
+
+f_1 = "x1 x2 x3 \n 1 2 3 \n 4 5 6 \n 7 8 9"

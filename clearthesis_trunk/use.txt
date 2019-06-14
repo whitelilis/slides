@@ -1,0 +1,331 @@
+论文题目（或选题范围）    基于经典粗糙集理论的规则生成算法研究     
+                                                                   
+一、综  述：                                                       
+在现实生活中，人们往往希望通过已有的经验或数据记录来对未来的事件或 
+者新的事例进行预测，在数据挖掘的相关研究中，这一方面的研究称为“决策
+支持”。它的典型形式就是通过已有的数据，形成“预测规则”，也就是发现已
+有数据中存在的规律或模式，从而实现用机器（通常是用电脑）来实现知识 
+发现。可见，规则生成在辅助决策支持中起着举足轻重的作用。           
+在上世纪 70 年代，波兰学者 Z.Pawlak 和一些波兰科学院、波兰华沙大学 
+的逻辑学家们，一起从事关于信息系统逻辑特性的研究。在这些研究的基础 
+上，产生了一种新的处理模糊和不确定性知识的数学工具──粗糙集理论。198
+2 年， Z.Pawlak 发表了经典论文《Rough Sets》[17]，宣告了粗糙集理论的 
+诞生。此后，粗糙集理论引起了许多数学家，逻辑学家和计算机研究人员的 
+兴趣，他们在粗糙集的理论和应用方面作了大量的研究工作。 1991        
+年Z.Pawlak 的专著 [18] 和 1992                                     
+年应用专集的出版，对这一段时期理论和实践工作的成果作了较好的总结， 
+同时促进了粗糙集在各个领域的应用。此后召开的与粗糙集有关的国际会议 
+进一步推动了粗糙集的发展。和传统的统计相关的数据挖掘算法相比，粗糙 
+集算法有一个显著的优点，即它不需要人为的指定先验阈值（比如关联算法 
+中的支持度，置信度），它所要用到的只是原始数据。这样就可以避免不同 
+的阈值得到不同的结果，而且也省去了从经验中得到先验知识的步骤。其主 
+要思想就是在保持分类能力不变的前提下，通过知识约简 [4,11,12]，导出 
+问题的决策或分类规则。目前，粗糙集理论已被成功地应用于机器分析、过 
+程控制、模式识别与数据挖掘等领域。经典的粗糙集理论是以“等价关系”为 
+基础来讨论的，后来又发展为其它几种粗糙集理论，如基于覆盖的粗糙集[1,
+3,5,6,13,15]，基于一般关系的粗糙集、S-粗集等等。在处理不确定性方面 
+，还有模糊集( Fuzzy  set )的理论，由于它与粗糙集有理论很大的互补性 
+，于是出现了有关于粗糙集和糊糊集相结合的“模糊粗糙集”( fuzzy  rough 
+set )和“粗糙模糊集”( rougt  fuzzy  set )[2,14]等等理论。这些理论都 
+各有它们的特点和适用范围，关于相关的应用研究也在迅速开展。                     
+在粗糙集的应用中，通过定义“上近似”和“下近似”，进而可以计算“属性的依
+赖性”，这个指标可以显示出不同属性之间的依赖关系；还可以计算“属性的 
+重要性”，这个指标可以看出某一属性在整个属性集中的价值和它提供的信息
+量；还可以计算与原属性集有相同分类能力的“约简”属性集，在不改变系统 
+分类能力的前提下对属性集进行简化，进而可以生成决策规则，辅助决策。 
+属性约简是粗糙集理论的一大特色，在很多的规则生成算法中，这也是算法 
+中最重要的一步。然而，研究表明，找出所有约简是的的时间复杂性是指数 
+的，而找出最小约简的复杂性也是 NP-hard 的。特别是，Ron Kohavi和    
+Brian Frasca                                                       
+在[10]中用实验指出，属性约简得到的的属性集甚至可能是无用的。       
+二、问题的提出                                                     
+通过以上分析，我们希望找到这样一种规则生成的办法：                 
+1.                                                                 
+在同样的知识表述能力下，它能够生成尽可能少的规则。这意味着，对于同 
+样的已知数据，我们得到的规则有更强的概括性。                       
+2.                                                                 
+在同样的规则数下，它含有尽可能少的属性项。这也就是说，在对新的事例 
+进行预测时，我们得到的规则需要进行的比较次数更少。因为在数据挖掘工 
+作中，规则的应用一般比规则的生成要频繁得多，也就是说，我们的规则将 
+更加有效。                                                         
+3.                                                                 
+既然属性约简的结果不一定是必要的，而约简算法又是相对复杂的，那么， 
+我们希望找到一个不依赖于约简计算的算法。这在一定程度上可以降低程序 
+的计算复杂性。                                                     
+三、课题的实用价值或者理论意义                                     
+由于经典粗糙集出现得比较早，相关的应用研究的也相对就多一些，因此， 
+对于该理论中某个算法的改进或是性能和有效性方面提高，对于应用的影响 
+相对更大一些。所以我们也准备对经典粗糙集的相关算法，特别是对最有现 
+实意义的规则生成算法进行研究，力图对它的有效性进行改善。算法的研究 
+，在理论上可以使粗糙集规则生成算法更加丰富，在实际应用中，通过上一 
+节的分析可以知道，也可以使生成的规则更加有效，进而更好的辅助决策。 
+
+
+                              选   题   报   告
+[pic]                                                              
+图 1 rosetta 软件                                                  
+                                                                   
+sepal length                                                       
+sepal width                                                        
+petal length                                                       
+petal width                                                        
+class                                                              
+                                                                   
+5.1                                                                
+4.9                                                                
+4.7                                                                
+4.6                                                                
+5.0                                                                
+5.4                                                                
+4.6                                                                
+5.0                                                                
+4.4                                                                
+3.5                                                                
+3.0                                                                
+3.2                                                                
+3.1                                                                
+3.6                                                                
+3.9                                                                
+3.4                                                                
+3.4                                                                
+2.9                                                                
+1.4                                                                
+1.4                                                                
+1.3                                                                
+1.5                                                                
+1.4                                                                
+1.7                                                                
+1.4                                                                
+1.5                                                                
+1.4                                                                
+0.2                                                                
+0.2                                                                
+0.2                                                                
+0.2                                                                
+0.2                                                                
+0.4                                                                
+0.3                                                                
+0.2                                                                
+0.2                                                                
+Iris-setosa                                                        
+Iris-setosa                                                        
+Iris-setosa                                                        
+Iris-versicolor                                                    
+Iris-versicolor                                                    
+Iris-versicolor                                                    
+Iris-versicolor                                                    
+Iris-virginica                                                     
+Iris-virginica                                                     
+                                                                   
+表 1 Iris 部分数据                                                 
+四、新算法仿真与新旧算法比较方案                                   
+
+
+                              选   题   报   告
+  算法的改进总要有参照对象，在本研究中，我们准备与由波兰华沙大学与 
+挪威科技大学联合开发的 Rosetta 软件[16] (如图 1                    
+)提供的几个粗糙集的相关算法进行对比。实验的数据取自 UCI 机器学习研 
+究所，如 Iris  数据集[7](部分数据见表 1)， new-thyroid 数据集[19]，
+yellow-small(balloons)  数据集等等。我们的算法实现则采用           
+Haskell[8,9] 来实现，利用它的 lazy                                 
+特性，可以自动实现运算量的最小化，而且它还提供了丰富易用的数据结构 
+和库函数。                                                         
+五、预期新算法成果与目标                                           
+在算法实现与仿真阶段，对应于同一个数据集，我们将从以下方面比较各种 
+算法：                                                             
+1. 生成的规则数                                                    
+2. 生成规则的覆盖率                                                
+3. 生成规则对于不一致性数据的敏感性                                
+4. 生成规则的速度                                                  
+5. 生成规则的简单程度                                              
+当然，对应于一些没有现成标准的指标，可能还要自己定义一些量来评测。 
+预期我们的新算法会在以上各方面都产生较好的性能和结果。             
+参考文献                                                           
+1、 Xiaoqing Chen, Taorong Qiu, Qing Liu, and Houkuan Huang. The   
+frame-                                                             
+work of temporal granular logic based on information system. In    
+IEEE                                                               
+GrC 2006, pages 604–606, 2006.                                     
+2、 Yong Chen and Yuehui Chen. A?ective computing model based on   
+rough                                                              
+fuzzy sets. In Cognitive Informatics, 2006. ICCI 2006. 5th IEEE    
+Interna-                                                           
+tional Conference on, volume2, pages 835–838, Beijing, July 2006.  
+3、 MarekChuchro. Onroughsetsin topologicalbooleanalgebras. In     
+Wojciech                                                           
+Ziarko, editor, Rough Sets, Fuzzy Sets and Knowledge Discovery,    
+pages                                                              
+157–160. Springer, 1994.                                           
+
+
+                              选   题   报   告
+4、 Tingquan Deng and Yanmei Chen. On reduction of morphological   
+covering rough sets. In FSKD 2006, volume 4223 of LNAI, pages      
+266–275, 2006.                                                     
+5、 D. Dubois and H.Prade. Rough fuzzy sets and fuzzy rough setsr. 
+Interna-                                                           
+tional Journal of General Systems, 17(2–3):191–209, 1990.          
+6、 Tao Feng, Jusheng Mi, and Weizhi Wu. Covering-based generalized
+rough                                                              
+fuzzy sets. In RSKT 2006, volume 4062 of LNAI, pages 208–215, 2006.
+7、 G.Gates. The reduced nearestneighbor rule (corresp.). IEEE     
+Transactions                                                       
+on Information Theory, 18(3):431–433, May 1972.                    
+8、 R. J. M. Hughes. The Design and Implementation of Programming  
+Lan-                                                               
+guages. PhDthesis, ProgrammingResearchGroup, OxfordUniversity, July
+1983.                                                              
+9、 R. J. M. Hughes. Lazy Memo-functions. In Proceedings 1985      
+Conference                                                         
+on Functional Programming Languages and Computer Architecture,     
+Nancy,                                                             
+France, 1985.                                                      
+10、 RonKohaviandBrianFrasca.                                      
+Usefulfeaturesubsetsandroughsetreducts,                            
+1994.                                                              
+11、 Dao-Guo Li, Duo-Qian Miao, and Yi-Qi Yin. Relation of relative
+reduct                                                             
+based on nested decision granularity. In IEEE GrC 2006, pages      
+397–400,                                                           
+2006.                                                              
+12、 Hong-RuLi, Wen-Xiu Zhang, andHongWang.                        
+Classificationandreduction                                         
+of attributes in concept lattices. In IEEE GrC 2006, pages 142–147,
+2006.                                                              
+13、 Jinjin Li. Topological methods on the theory of covering      
+generalized rough                                                  
+sets. Pattern Recognition & Artificial Intelligence(in Chinese),   
+17(1):7–10,                                                        
+2004.                                                              
+14、 J.N. Mordeson. Algebraic properties of spaces in roughfuzzy   
+set theory. In                                                     
+
+
+                              选   题   报   告
+Fuzzy Information Processing Society, 1999. NAFIPS. 18th           
+International Conference of the North American, pages56–59,New     
+York, NY, June 1999.                                               
+15、 S. Nanda. Fuzzy rough sets. Fuzzy Sets and Systems,           
+45:157–160, 1992.                                                  
+16、 Aleksander Ohrn. Discernibility and Rough Sets in Medicine:   
+Tools and                                                          
+Applications. PhD thesis, Norwegian University of Science and      
+Technology,                                                        
+1999.                                                              
+17、 Z. Pawlak. Rough sets. Internat. J. Comput. Inform. Sci.,     
+11:341–356,                                                        
+1982.                                                              
+18、 Z.Pawlak. Rough sets: Theoretical aspects of reasoning about  
+data. Kluwer                                                       
+Academic Publishers, Boston, 1991.                                 
+19、 M. L. Raymer, T. E. Doom, L. A. Kuhn, and W. F. Punch.        
+Knowledge                                                          
+discovery in medical and biological datasets using a hybrid bayes  
+classi-                                                            
+fier/evolutionaryalgorithm. Systems, Man, and Cybernetics, Part B, 
+IEEE                                                               
+Transactions on, 33(5):802–813, October 2003.                      
+
+
+                           论  文  工  作  计  划
+论文工作计划 |起止日期    |阶 段 工 作 内 容 及 计 划 完 成 的 指  
+             |            |标                                      
+论文准备，现 |2008.12-2009|查阅资料，收集粗糙集规则生成相关的算法及
+场调研       |.3          |其分析步骤和方法以及过程                
+             |            |                                        
+确定研究方案 |            |进一步分析相关资料，查阅已有算法，整理资
+             |2009.4-2009.|料数据并完成对新算法的确定              
+             |7           |                                        
+论文实施     |            |算法实现，已经相关软件的调查和使用，,在 
+             |            |相关数据上做比较，结果对比，论文撰写，算
+             |2009.7-2009.|法调试，论文修改                        
+答辩准备     |9           |                                        
+             |            |整理完成，准备毕业答辩                  
+             |            |                                        
+             |2009.9-2009.|                                        
+             |11          |                                        
+实验设备及其他条件落实情况：                                        
+                                                                    
+                                                                    
+属于哪一级科研项目及所属类型（国家重点、部委、省（市）、校重点、横向
+、自选等）及经费来源、金额：（单位千元）                            
+                                                                    
+                                                                    
+在所属论文类型、选题来源前划“√”（只可选择一项填写）                 
+论 文 |理    论    研    究          |应    用    基    础          
+类 型 |                              |                              
+      |用    于    生    产          |其                他          
+选 题 |指导教师所承担的科研|委托或定向单位所承 |自    选     题    
+来 源 |课题或其中的子课题  |担                 |                   
+      |                    |的科研课题或其子课 |                   
+      |                    |题                 |                   
+指导教师意见：                                                      
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+导师签字              年     月     日                              
+导师组意见：                                                        
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+签字                 年     月     日                               
+研 究 生 论 文 选 题 报 告 评 审 纪 要                              
+教研室（研究室）                    |主持人：       |时间：         
+参家 |姓      名    |职     称      |姓      名     |职      称     
+加姓 |              |               |               |               
+评名 |              |               |               |               
+审及 |              |               |               |               
+的职 |              |               |               |               
+专称 |              |               |               |               
+     |              |               |               |               
+     |              |               |               |               
+评提 |                                                              
+审出 |                                                              
+会的 |                                                              
+对问 |                                                              
+开题 |                                                              
+题及 |                                                              
+报意 |                                                              
+告见 |                                                              
+请专家按下列指标评议选项报告，在评价项栏划“√”。                     
+ 等级|优             |良             |中             |差             
+指标 |               |               |               |               
+论   |    选题有新意 |选题有一定的理 |选题尚可，对生 |选题不当，理论 
+文   |，有较大的科学 |论意义或一定的 |产有意义。     |意义或使用价值 
+选   |理论意义或对国 |实用价值。     |               |不明确。       
+题   |民经济建设有较 |               |               |               
+     |大的实用价值。 |               |               |               
+文   |阅读广泛，综述 |阅读比较广泛， |基本了解本学科 |综述不够全面， 
+献   |能力很强，了解 |综述分析能力较 |及相关学科的研 |对本学科及相关 
+综   |本领域国内外学 |强，了解本领域 |究状况和进展， |学科的研究不十 
+述   |术研究动态主攻 |前人主要工作， |综述尚可。     |分了解。       
+     |方面明确。     |明确工作方向。 |               |               
+是 否|                                                              
+通 过|                                                              
+     |签字         年     月     日                                 
+学科（专业）学位委员会审批意见：                                    
+                                                                    
+                                                                    
+签字      年    月    日                                            
+
+-----------------------
+博士
+硕士
+
+
+
+

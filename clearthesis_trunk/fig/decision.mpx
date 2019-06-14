@@ -1,0 +1,63 @@
+% Written by DVItoMP, Version 0.64/color (Web2C 7.5.5)
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmsy10";
+_s("f",_n0,1.00000,0.0000,0.0000,);
+setbounds _p to (0,-2.4907)--(4.9813,-2.4907)--
+ (4.9813,7.4720)--(0,7.4720)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmsy10";
+_s("f",_n0,1.00000,0.0000,0.0000,);
+setbounds _p to (0,-2.4907)--(4.9813,-2.4907)--
+ (4.9813,7.4720)--(0,7.4720)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n1="gbksong57";
+_s("^",_n1,1.00000,0.0000,0.0000,);
+_n2="gbksong45";
+_s(char135,_n2,1.00000,9.9626,0.0000,);
+_n3="gbksong55";
+_s(char225,_n3,1.00000,19.9253,0.0000,);
+_n4="gbksong60";
+_s("5",_n4,1.00000,29.8879,0.0000,);
+setbounds _p to (0,-1.0461)--(39.8506,-1.0461)--
+ (39.8506,8.1694)--(0,8.1694)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n5="gbksong46";
+_s(char251,_n5,1.00000,0.0000,0.0000,);
+_n6="gbksong37";
+_s(char252,_n6,1.00000,9.9626,0.0000,);
+_n3="gbksong55";
+_s(char225,_n3,1.00000,19.9253,0.0000,);
+_n4="gbksong60";
+_s("5",_n4,1.00000,29.8879,0.0000,);
+setbounds _p to (0,-1.0859)--(39.8506,-1.0859)--
+ (39.8506,8.1295)--(0,8.1295)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n7="cmr10";
+_s("1",_n7,1.00000,231.1333,-1078.9539,);
+setbounds _p to (0,-1.0859)--(39.8506,-1.0859)--
+ (39.8506,8.1295)--(0,8.1295)--cycle;
+_p endgroup
+mpxbreak

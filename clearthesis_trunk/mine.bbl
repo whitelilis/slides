@@ -1,0 +1,330 @@
+\begin{thebibliography}{10}
+
+\bibitem{ChenQiuLiuHuang06TheFramework}
+Xiaoqing Chen, Taorong Qiu, Qing Liu, and Houkuan Huang.
+\newblock The framework of temporal granular logic based on information system.
+\newblock In {\em IEEE GrC 2006}, pages 604--606, 2006.
+
+\bibitem{ChenYao06Multiview}
+Yaohua Chen and Yiyu Yao.
+\newblock Multiview intelligent data analysis based on granular computing.
+\newblock In {\em IEEE GrC 2006}, pages 281--286, 2006.
+
+\bibitem{Chen2006}
+Yong Chen and Yuehui Chen.
+\newblock Affective computing model based on rough fuzzy sets.
+\newblock In {\em Cognitive Informatics, 2006. {ICCI} 2006. 5th {IEEE}
+  International Conference on}, volume~2, pages 835--838, Beijing, July 2006.
+
+\bibitem{Chuchro94OnRough}
+Marek Chuchro.
+\newblock On rough sets in topological boolean algebras.
+\newblock In Wojciech Ziarko, editor, {\em Rough Sets, Fuzzy Sets and Knowledge
+  Discovery}, pages 157--160. Springer, 1994.
+
+\bibitem{DengChen06OnReduction}
+Tingquan Deng and Yanmei Chen.
+\newblock On reduction of morphological covering rough sets.
+\newblock In {\em FSKD 2006}, volume 4223 of {\em LNAI}, pages 266--275, 2006.
+
+\bibitem{DuboisPrade90Rough}
+D.~Dubois and H.~Prade.
+\newblock Rough fuzzy sets and fuzzy rough setsr.
+\newblock {\em International Journal of General Systems}, 17(2--3):191--209,
+  1990.
+
+\bibitem{FengMiWu06Covering-Based}
+Tao Feng, Jusheng Mi, and Weizhi Wu.
+\newblock Covering-based generalized rough fuzzy sets.
+\newblock In {\em RSKT 2006}, volume 4062 of {\em LNAI}, pages 208--215, 2006.
+
+\bibitem{irisIeee}
+G.~Gates.
+\newblock The reduced nearest neighbor rule (corresp.).
+\newblock {\em {IEEE} Transactions on Information Theory}, 18(3):431--433, May
+  1972.
+
+\bibitem{WangDuntschBell98Data}
+D.~Bell H.~Wang, I.~Duntsch.
+\newblock Data reduction based on hyper relations.
+\newblock In P.~Stolorz R.~Agrawal and G.~Piatetsky-Shapiro, editors, {\em
+  Proceedings of KDD?8}, pages 349--353. Kluwer Academic Publishers, Boston,
+  1998.
+
+\bibitem{hughes:matters-cj}
+J.~Hughes.
+\newblock {Why Functional Programming Matters}.
+\newblock {\em Computer Journal}, 32(2):98--107, 1989.
+
+\bibitem{usefulFeatureSubsetsAndRoughSetReducts}
+Ron Kohavi and Brian Frasca.
+\newblock Useful feature subsets and rough set reducts, 1994.
+
+\bibitem{LeungWuZhangn06Knowledge}
+Yee Leung, Wei-Zhi Wu, and Wen-Xiu Zhang.
+\newblock Knowledge acquisition in incomplete information systems: A rough set
+  approach.
+\newblock {\em European Journal of Operational Research}, 168:164--180, 2006.
+
+\bibitem{LiMiaoYin06Relation}
+Dao-Guo Li, Duo-Qian Miao, and Yi-Qi Yin.
+\newblock Relation of relative reduct based on nested decision granularity.
+\newblock In {\em IEEE GrC 2006}, pages 397--400, 2006.
+
+\bibitem{LiZhangWang06Classification}
+Hong-Ru Li, Wen-Xiu Zhang, and Hong Wang.
+\newblock Classification and reduction of attributes in concept lattices.
+\newblock In {\em IEEE GrC 2006}, pages 142--147, 2006.
+
+\bibitem{Li04Topological}
+Jinjin Li.
+\newblock Topological methods on the theory of covering generalized rough sets.
+\newblock {\em Pattern Recognition \& Artificial Intelligence(in Chinese)},
+  17(1):7--10, 2004.
+
+\bibitem{roughsetZheLiu}
+Zhe Liu and Yijie Li.
+\newblock A new heuristic algorithm of rules generation based on rough sets.
+\newblock In {\em Business and Information Management, 2008. {ISBIM} '08.
+  International Seminar on}, volume~1, pages 291--294, Wuhan, Hubei, China,,
+  December 2008.
+
+\bibitem{Mordeson1999}
+J.~N. Mordeson.
+\newblock Algebraic properties of spaces in rough fuzzy set theory.
+\newblock In {\em Fuzzy Information Processing Society, 1999. {NAFIPS}. 18th
+  International Conference of the North American}, pages 56--59, New York, NY,
+  June 1999.
+
+\bibitem{Nanda92Fuzzy}
+S.~Nanda.
+\newblock Fuzzy rough sets.
+\newblock {\em Fuzzy Sets and Systems}, 45:157--160, 1992.
+
+\bibitem{rosettaMain}
+Aleksander Ohrn.
+\newblock {\em Discernibility and Rough Sets in Medicine: Tools and
+  Applications}.
+\newblock PhD thesis, Norwegian University of Science and Technology, 1999.
+
+\bibitem{Orlowska97Incomplete}
+E.~Orlowska.
+\newblock Incomplete information -- rough set analysis.
+\newblock 1997.
+
+\bibitem{Orlowska97Introduction}
+E.~Orlowska.
+\newblock Introduction: What you always wanted to know about rough sets.
+\newblock In {\em Incomplete Information -- Rough Set Analysis}, pages 1--20,
+  1997.
+
+\bibitem{Pawlak82Rough}
+Z.~Pawlak.
+\newblock Rough sets.
+\newblock {\em Internat. J. Comput. Inform. Sci.}, 11:341--356, 1982.
+
+\bibitem{Pawlak91Rough}
+Z.~Pawlak.
+\newblock {\em Rough sets: Theoretical aspects of reasoning about data}.
+\newblock Kluwer Academic Publishers, Boston, 1991.
+
+\bibitem{PawlakSkowron07RoughSetAndBooleanReasoning}
+Zdzislaw Pawlak and Andrzej Skowron.
+\newblock Rough sets and boolean reasoning.
+\newblock {\em Information Sciences}, 177(1):41--73, 2007.
+
+\bibitem{PawlakSkowron07RoughSetsSomeExtensions}
+Zdzislaw Pawlak and Andrzej Skowron.
+\newblock Rough sets: Some extensions.
+\newblock {\em Information Sciences}, 177(1):28--40, 2007.
+
+\bibitem{PawlakSkowron07Rudiments}
+Zdzislaw Pawlak and Andrzej Skowron.
+\newblock Rudiments of rough sets.
+\newblock {\em Information Sciences}, 177(1):3--27, 2007.
+
+\bibitem{Pomykala93Approximation}
+J.~Pomykala.
+\newblock Approximation, similarity and rough constructions.
+\newblock In {\em ILLC Prepublication series, University of Amsterdam}, volume
+  CT-93-07, 1993.
+
+\bibitem{Rojanavasu2003}
+P.~Rojanavasu and O.~Pinngern.
+\newblock Extended rough fuzzy sets for web search agent.
+\newblock In {\em Information Technology Interfaces, 2003. {ITI} 2003.
+  Proceedings of the 25th International Conference on}, pages 403--407, June
+  2003.
+
+\bibitem{PalMitraMitra03rough}
+P.~Mitra S.~Pal, S.~Mitra.
+\newblock Rough-fuzzy mlp: Modular evolution, rule generation, and evaluation.
+\newblock {\em IEEE Trans. On Knowledge and Data Engineering}, 15(1):15--24,
+  2003.
+
+\bibitem{minReductNPHard}
+Qiang Shen and Alexios Chouchoulas.
+\newblock Rough set-based dimensionality reduction for supervised and
+  unsupervised learning.
+\newblock {\em International Journal of APPLIED MATHEMATICS AND COMPUTER
+  SCIENCE}, 11(3):583--601, 2001.
+
+\bibitem{SlowinskiVanderpooten96Generalized}
+R.~Slowinski and D.~Vanderpooten.
+\newblock A generalized definition of rough approximations, 1996.
+
+\bibitem{Szmigielski02Rough}
+Adam Szmigielski.
+\newblock Rough mereological localization and navigation.
+\newblock In {\em Rough Sets and Current Trends in Computing}, pages 629--638,
+  2002.
+
+\bibitem{Tsang2008}
+E.~C.~C. Tsang, D.~Chen, D.~S. Yeung, X.~Z. Wang, and J.~W.~T. Lee.
+\newblock Attributes reduction using fuzzy rough sets.
+\newblock {\em {IEEE} Transactions on Fuzzy Systems}, 16(5):1130--1141, October
+  2008.
+
+\bibitem{Turksen02Fuzzy}
+I.~Burhan T{\"u}rksen.
+\newblock Fuzzy sets, multi-valued mappings, and rough sets.
+\newblock In {\em Rough Sets and Current Trends in Computing}, volume 2475 of
+  {\em LNCS}, page~60, 2002.
+
+\bibitem{dataset}
+Uci machine learning repository, 2005.
+
+\bibitem{VitoriaMaluszynski02ALogic}
+Aida Vit{\'o}ria and Jan Maluszynski.
+\newblock A logic programming framework for rough sets.
+\newblock In {\em Rough Sets and Current Trends in Computing}, volume 2475 of
+  {\em LNCS}, pages 205--212, 2002.
+
+\bibitem{RoughSet-AidedFeatureSelectionforAutomaticWeb-PageClassification}
+T.~Wakaki, H.~Itakura, and M.~Tamura.
+\newblock Rough set-aided feature selection for automatic web-page
+  classification.
+\newblock In {\em Web Intelligence, 2004. {WI} 2004. Proceedings.
+  {IEEE}/{WIC}/{ACM} International Conference on}, pages 70--76, September
+  2004.
+
+\bibitem{Wang02Attribute}
+G.~Y. Wang.
+\newblock Attribute core of decision table.
+\newblock In {\em Rough Sets and Current Trends in Computing}, volume 2475 of
+  {\em LNCS}, pages 213--217, 2002.
+
+\bibitem{Wu2006}
+Qing-E Wu, Tuo Wang, Yong-Xuan Huang, and Ji-Sheng Li.
+\newblock New research on fuzzy rough sets.
+\newblock In {\em Machine Learning and Cybernetics, 2006 International
+  Conference on}, pages 4178--4183, Dalian, August 2006.
+
+\bibitem{Zadeh75I}
+L.A. Zadeh.
+\newblock The concept of a linguistic variable and its application to
+  approximate reasoning -- {I}.
+\newblock {\em Information Sciences}, 8:199--249, 1975.
+
+\bibitem{Zadeh75II}
+L.A. Zadeh.
+\newblock The concept of a linguistic variable and its application to
+  approximate reasoning -- {II}.
+\newblock {\em Information Sciences}, 8:301--357, 1975.
+
+\bibitem{Zadeh75III}
+L.A. Zadeh.
+\newblock The concept of a linguistic variable and its application to
+  approximate reasoning -- {III}.
+\newblock {\em Information Sciences}, 9:43--80, 1975.
+
+\bibitem{Zadeh05Toward}
+Lotfi Zadeh.
+\newblock Toward a generalized theory of uncertainty (gtu): an outline.
+\newblock {\em Information Sciences}, 172(1--2):1--40, 2005.
+
+\bibitem{sql2005}
+Jamie~MacLennan ZhaoHui~Tang.
+\newblock {\em 数据挖掘原理与应用 $--$ SQL Server 2005 数据库}.
+\newblock 清华大学出版社, 北京, 2007.
+
+\bibitem{Zhong01Rough}
+Ning Zhong.
+\newblock Rough sets in knowledge discovery and data mining.
+\newblock {\em Journal of Japan Society for Fuzzy Theory and Systems},
+  13(6):581--591, 2001.
+
+\bibitem{ZhuHe00TheAxiomization}
+Feng Zhu and Hua-Can He.
+\newblock The axiomization of the rough set.
+\newblock {\em Chinese Journal of Computers}, 23(3):330--333, March 2000.
+
+\bibitem{ZhuHe00Logic}
+Feng Zhu and Hua-Can He.
+\newblock Logical properties of rough sets.
+\newblock In {\em Proc. of The Fourth International Conference on High
+  Performance Computing in the Asia-Pacific Region}, volume~2, pages 670--671.
+  IEEE Press, 2000.
+
+\bibitem{Zhu07Informed}
+William Zhu.
+\newblock Informed recognition in software watermarking.
+\newblock In {\em PAISI 2007}, volume 4430 of {\em LNCS}, pages 257C--261,
+  2006.
+
+\bibitem{Zhu06PropertiesoftheFourth}
+William Zhu.
+\newblock Properties of the fourth type of covering-based rough sets.
+\newblock In {\em HIS'06, AUT Technology Park, Auckland, New Zealand, December
+  13-15, 2006}, pages 43--43, 2006.
+
+\bibitem{Zhu06PropertiesoftheSecond}
+William Zhu.
+\newblock Properties of the second type of covering-based rough sets.
+\newblock In {\em Workshop Proceedings of GrC\&BI 06, IEEE WI 06, Hong Kong,
+  China, December 18, 2006}, pages 494--497, 2006.
+
+\bibitem{Zhu07Topological}
+William Zhu.
+\newblock Topological approaches to covering rough sets.
+\newblock {\em Information Sciences}, 177(6):1499--1508, 2007.
+
+\bibitem{ZhuWang03Reduction}
+William Zhu and Fei-Yue Wang.
+\newblock Reduction and axiomization of covering generalized rough sets.
+\newblock {\em Information Sciences}, 152:217--230, 2003.
+
+\bibitem{ZhuWang06PropertiesoftheFirst}
+William Zhu and Fei-Yue Wang.
+\newblock Properties of the first type of covering-based rough sets.
+\newblock In {\em Proceedings of DM Workshop 06, ICDM 06, Hong Kong, China,
+  December 18, 2006}, pages 407--411, 2006.
+
+\bibitem{s_rough_set}
+史开泉，崔玉泉.
+\newblock {\em S-粗集与粗决策}.
+\newblock 科学出版社, 北京, 2006.
+
+\bibitem{roughSetChinese}
+张文修，吴伟志，梁吉业，李德玉.
+\newblock {\em 粗糙集理论与方法}.
+\newblock 科学出版社, 西安, 2001.
+
+\bibitem{nvfs}
+杨志民，刘广利.
+\newblock {\em 不确定性支持向量机}.
+\newblock 科学出版社, 北京, 2007.
+
+\bibitem{applicationInTrees}
+汪杭军，方陆明，张广群.
+\newblock 粗糙集在林业信息管理中的应用, 2006.
+
+\bibitem{fuzzyRoughsetZhang}
+袁修久，张文修.
+\newblock 模糊粗糙集的包含度和相似度, 2005.
+
+\bibitem{ruleReduct}
+马廷淮，赵亚伟，曾振柄，张海盛.
+\newblock 基于粗糙集的决策规则约简, 2003.
+
+\end{thebibliography}

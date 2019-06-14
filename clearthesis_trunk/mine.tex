@@ -1,0 +1,1142 @@
+\documentclass{wizard}
+
+\newcommand{\ps}[2]{{}^{#2}{#1}}
+\def\basic{对于决策表模型~$K = (U, A)$，其中，$ A = C \cup D, C \cap D = \emptyset$~代表决策表中的属性集，而~$C$~叫做决策表~$K$~的条件属性，$D$~叫做~$K$~的决策属性，~$U \neq \emptyset$~是决策表中所有对象构成的论域。对于~$\forall x \in U, \forall P \in A$, 用~$\ps{P}{x}$~记作元素~$x$~在属性集~$P$~下对应的值集。}
+
+\def\numBasic{对于决策表模型~$K = (U,A)$，其中，~$A = C \cup D, C \cap D = \emptyset$~代表决策表中的属性集，而~$C$~叫做~$K$~的条件属性，~$D$~叫做~$K$~的决策属性。~$U \neq \emptyset$~是决策表中所有对象构成的论域。对于~$\forall x \in U, \forall P \in A$, 用~$\ps{P}{x}$~记作元素~$x$~在属性集~$P$~下对应的值集。并设~$|U| = n, |C| = m, |D| = r$~, ~$Q = 2^C = \vv{Q}{t}$~，经典粗糙集算法得到的约简属性集为~$R = Q_l = \vv{R}{s}$~。}
+
+
+\def\hello{hhhhhhhhhhhhhhhello}
+\def\linux{~$GNU/Linux$~}
+\def\haskell{~$haskell$~}
+\def\uci{~$UCI$~}
+\def\aFName{~$Short Firts Algorithm$~}
+\def\aName{~$SFA$~}
+\def\sigFName{~$Single Attribute Set Rules Generating Algorithm$~}
+\def\sigName{~$SASRGA$~}
+\def\vFName{~$Mean Rules Length$~}
+\def\vName{~$MRL$~}
+\def\rosetta{~$Rosetta$~}
+\def\scale{~$BROrthogonalScaler$~}
+\def\iris{~$Iris$~}
+\def\thsh{~$New-thyroid$~}
+\def\yellow{~$Yellow-small(balloons)$~}
+\def\ctr{~$ctr$~}
+\def\loan{~$Loan$~}
+
+
+
+\begin{document}
+%\includepdfmerge{xuBegin.pdf,1-}
+\setcounter{page}{1}
+\chapter*{摘要}
+\chineseKeywords{数据挖掘； \ 粗糙集； \  约简； \ 覆盖}
+
+\chapter*{Abstract}
+
+\hello
+\keywords{Data Mining; \ Rough Set; \ Reduct; \ Loan}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterAbstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{绪论}
+
+\section{选题的目的和意义}
+%题目的来源，要解决的问题，目的和意义
+电子计算机的发展，尤其是互联网的发展，给人们提供了海量的信息。现在，即使是一个不太出名的网络结点，日访问量都需要以~$T$~来计算。面对如此巨大的数据量，虽然我们有大型数据库来存储信息，并且存储设备也一直在按照摩尔定律发展，但是我们的头脑却不能按这个速度发展，还是很快地被这海量的数据所淹没。出于从如此庞大的数据集中发现人们真正感兴趣的信息这一目的，就产生了“数据挖掘”这一新兴的学科。
+
+数据挖掘的基本思想是简单的，也是有意义的：就是从海量的数据中发现其中存在的规律，可以用“沙里淘金”来形容。
+
+数据挖掘理论和技术发展至今，已经有了很多成熟的模型，比如，分类、聚类、规则生成、趋势预测等等，这些理论和方法也已经成功地应用于金融、市场、风险评测等等商业领域，创造了很高的价值。
+
+在现实生活中，人们往往希望通过已有的经验或数据记录来对未来的事件或 
+者新的事例进行预测，在数据挖掘的相关研究中，这一方面的研究称为“决策
+支持”。它的典型形式就是通过已有的数据，形成“预测规则”，也就是发现已
+有数据中存在的规律或模式，从而实现用机器（通常是用电脑）来实现知识 
+发现。可见，规则生成在辅助决策支持中起着举足轻重的作用。
+
+传统的以统计学为基础的数据挖掘算法如关联规则算法，决策树算法等等，在处理确定性问题时，计算速度快，处理精度高。然而生活中更多的是不确定的问题，这一要求推动了数据挖掘中新的领域不断产生。
+
+\section{国内外研究现状}
+%对研究领域，从大的方面到小的方面，概述发展和历史，以及国内外的现状和取得的成果和他们正在做的研究。
+在上世纪~70~年代，波兰学者~Z.Pawlak~和一些波兰科学院、波兰华沙大学的逻辑学家
+们，一起从事关于信息系统逻辑特性的研究。在这些研究的基础上，产生了一种新的处
+理模糊和不确定性知识的数学工具──粗糙集理
+论\supercite{Zadeh05Toward}。1982~年，~Z.Pawlak~发表了经典论文《Rough Sets》\supercite{Pawlak82Rough}，宣告
+了粗糙集理论的诞生。此后，粗糙集理论引起了许多数学家，逻辑学家和计算机研究人
+员的兴趣，他们在粗糙集的理论和应用方面作了大量的研究工作。~1991~年~Z.Pawlak~的
+专著~\cite{Pawlak91Rough}~和~1992~年应用专集的出版，对这一段时期理论和实践工作的成果作了较好的总
+结，同时促进了粗糙集在各个领域的应用。此后召开的与粗糙集有关的国际会议进一步
+推动了粗糙集的发展。
+
+和传统的统计相关的数据挖掘算法相比，粗糙集算法有一个显著的优点，即它不需要人
+为的指定一些先验阈值（比如~\cite{sql2005}~中提到的关联算法中的支持度，置信
+度），它所要用到的只是原始数据。这样就可以避免不同的阈值得到不同的结果，而且
+也省去了从经验中得到先验知识的步骤。其主要思想就是在保持分类能力不变的前提
+下，通过知识约
+简
+\supercite{DengChen06OnReduction,LiMiaoYin06Relation,LiZhangWang06Classification}，
+导出问题的决策或分类规则。目前，粗糙集理论已被成功地应用于机器产、决策分析、
+过程控制、模式识别与数据挖掘等领域\supercite{roughSetChinese,Zhong01Rough}。经典的
+粗糙集理论是以“等价关系”为基础来讨论的，后来又发展为其它几种粗糙集理论，如基
+于覆盖的粗糙
+集
+\supercite{ZhuWang06PropertiesoftheFirst,Zhu06PropertiesoftheSecond,Zhu06PropertiesoftheFourth,Li04Topological,DuboisPrade90Rough,Nanda92Fuzzy,Chuchro94OnRough,ChenQiuLiuHuang06TheFramework,FengMiWu06Covering-Based}，
+基于一般关系的粗糙集\supercite{roughSetChinese}、S-粗集\supercite{s_rough_set}等等。
+
+在处理不确定性方面，还有模糊集(~$Fuzzy \ set$~)的理
+论\supercite{Zadeh75I,Zadeh75II,Zadeh75III}，由于它与粗糙集有理论很大的互补
+性\supercite{Turksen02Fuzzy}，于是出现了有关于粗糙集和糊糊集相结合的“模糊粗糙
+集”(~$fuzzy \ rough \ set$~)\supercite{Tsang2008,fuzzyRoughsetZhang,Wu2006}和“粗糙
+模糊集”(~$rougt \ fuzzy \ set$~)\supercite{Rojanavasu2003,Chen2006,Mordeson1999}等
+等理论。这些理论都各有它们的特点和适用范围，关于相关的应用研究也在迅速开
+展\supercite{applicationInTrees}。
+
+在粗糙集的应用中，通过定义“上近似”和“下近似”，进而可以计算“属性的依赖性”，这
+个指标可以显示出不同属性之间的依赖关系；还可以计算“属性的重要性”，这个指标可
+以看出某一属性在整个属性集中的价值和它提供的信息量；还可以计算与原属性集
+有相同分类能力的“约简”属性集，在不改变系统分类能力的前提下对属性集进行简化，
+进而可以生成决策规则，辅助决策。
+
+属性约简是粗糙集理论的一大特色，在很多的规则生成算法中，这也是算法的第一步。
+然而，研究表明，找出所有约简是的的时间复杂性是指数的，而找出最小约简的复杂性
+也是~$NP-hard$~的\supercite{roughSetChinese,minReductNPHard}。特别是，~Ron Kohavi~
+和~Brian Frasca~在~\cite{usefulFeatureSubsetsAndRoughSetReducts}~中用实验指
+出，属性约简得到的核属性集甚至可能是无用的。
+
+\section{研究的主要内容和方法}
+
+本文在系统地研究了粗糙集的基本理论的基础上，主要研究了经典粗糙集方法中一些概念和操作的必要性，对其进行适当的取舍和提炼，提出了一种新的从大量数据中生成规则的算法。
+
+新算法的预期目标如下：
+\begin{enumerate}
+	\item 与经典粗糙集方法分类能力相同或基本相当
+	\item 与经典粗糙集方法执行效率基本相当或更快
+	\item 比经典粗糙集方法产生相当数量的或更少的规则数
+	\item 比经典粗糙集方法产生的规则相当或更短
+\end{enumerate}
+
+如果算法实现了以上预期目标，显然我们在一定程度上抓住了数据更本质的特征，更有利于数据信息的使用。
+
+算法的改进总要有参照对象，在本研究中，我们与由波兰华沙大学与 
+挪威科技大学联合开发的\rosetta{}软件\supercite{rosettaMain}提供的几个粗糙集的相关算法进行对比。实验的数据取自\uci{}机器学习研 
+究所\supercite{dataset}，如\iris{}数据集\supercite{irisIeee}(部分数据见\tabref{tab:iris})，\thsh{}数据集(\tabref{tab:thsh})，
+\yellow{}数据集等等。我们的算法实现则采用           
+\haskell{}\supercite{hughes:matters-cj}来实现，利用它的~$lazy$~                                 
+特性，可以自动实现运算量的最小化，而且它还提供了丰富易用的数据结构 
+和库函数。                            
+
+\section{论文的组织结构}
+本文的接下来的组织结构如下：
+
+\chpref{chp:theroy}概述了经典粗糙集理论在规则生成算法方法需要用到的一些基本理论和术语。
+
+\chpref{chp:think}讨论了经典粗糙集理论和方法中用到的一些基本概念的合理性和可优化的地方，并基本阐述了本文的新算法的基本思想。
+
+\chpref{chp:alg}详细阐述了新算法和它的理论依据，并给出了严格的证明。
+
+\chpref{chp:conclusion}总结了本文，并对进一步的研究方向给出了建议和看法。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下应该形成一套完整的体系，含基础理论，基本方法和自己的创新。
+\chapter{粗糙集基础理论}
+\label{chp:theroy}
+粗糙集理论是一种新的处理模糊和不确定性知识的数学工具。
+
+在上世纪~70~年代，波兰学者~Z.Pawlak~和一些波兰科学院，波兰华沙大学的逻辑学家
+们，一起从事关于信息系统逻辑特性的研究。粗糙集理论就是在这些研究的基础上产生的。
+1982~年，~Z.Pawlak~发表了经典论文《Rough Sets》，宣告了粗糙集理论的诞生。此后，
+粗糙集理论引起了许多数学家，逻辑学家和计算机研究人员的兴趣，他们在粗糙集的理论
+和应用方面作了大量的研究工作。~1991~年~Z.Pawlak~的专著\supercite{Pawlak91Rough}和~1992~年应用专集的出版，
+对这一段时期理论和实践工作的成果作了较好的总结，同时促进了粗糙集在各个领域的应
+用。此后召开的与粗糙集有关的国际会议进一步推动了粗糙集的发展。
+
+粗糙集理论的主要思想就是在保持系统分类能力不变的前提下，通过知识约简，导出问题的决策或分类规
+则。目前，粗糙集理论已被成功地应用于机器学习、决策分析、过程控制、模式识别与数据
+挖掘等领域\supercite{roughSetChinese,Zhong01Rough}。经典的粗糙集理论是以“等价关系”为基础来讨论
+的，这里，我们也是采用的这种方法。
+
+和传统的统计相关的数据挖掘算法相比，粗糙集算法还有一个显著的优点，即它不需要人
+为的指定一些先验阈值（比如~\cite{sql2005}~中提到的关联算法中的支持度，置信度），它所
+要用到的只是原始数据。这样就可以避免不同的阈值得到不同的结果，而且也省去了从经
+验中得到先验知识的步骤。
+\section{基本概念}
+设~$U \neq \emptyset$~是应用中感兴趣的对象组成的非空有限集合，称为“论域”。对于~$\forall
+X \subseteq U$~，称~$X$~为~$U$~中的一个概念或范畴。空集也认为是一个概念。~$U$~
+中的任何概念放称为“知识”
+\supercite{PawlakSkowron07Rudiments,PawlakSkowron07RoughSetsSomeExtensions,PawlakSkowron07RoughSetAndBooleanReasoning,Zhu07Topological,Zhu07Informed,ChenYao06Multiview,LeungWuZhangn06Knowledge,Szmigielski02Rough,VitoriaMaluszynski02ALogic,Wang02Attribute,Orlowska97Introduction,Orlowska97Incomplete,nvfs}。
+
+一个划分~$\mathscr{L}$~定义为：
+\begin{define}\supercite{roughSetChinese}
+	\label{def:partition}
+	\begin{equation}
+		\mathscr{L} = \{X_1,X_2 \dots X_n\}; X_i \subseteq U, X_i \cap X_j =
+		\emptyset, i \neq j; \bigcup_{i=1}^n=U.
+	\end{equation}
+\end{define}
+
+~$U$~上的一族划分称为~$U$~的一个知识库。
+
+设~$R$~是~$U$~上的一个等价关系，~$U/R$~表示~$U$~的所有等价类构成的集
+合，~$[x]_R$~表示包含元素~$x \in U$~的~$R$~等价类。一个知识库就是一个关系系
+统~$K= (U,\pmb{R})$，其中~$U$~为非空有限集，称为论
+域，~$\pmb{R}$~是~$U$~上的一族等价关系。
+
+若~$P \subseteq \pmb{P}$，且~$P \neq
+\emptyset$，则~$\bigcap P$~也是一个等价关系，称为~$\pmb{P}$~上的不可区分关
+系，记为~$ind(\pmb{P})$，且有
+\begin{equation}
+	[x]_{ind(\pmb{P})} = \bigcap_{R \in \pmb{P}}[x]_R
+\end{equation}
+这样，~$U/ind({\pmb{P}})$~表示与等价关系族~$\pmb{P}$~相关的知识，称
+为~$K$~中关于~$U$~的~$\pmb{P}$~基本知识。有时用~$U/\pmb{P}$~来代
+替~$U/ind(\pmb{P})$，~$ind(\pmb{P})$~的等价类称为知识~$\pmb{P}$~的
+基本概念或基本范畴。
+
+令~$X \subseteq U$~，~$R$~为~$U$~上的一个等价关系，当~$X$~能表达为某些~$R$~基本范
+畴的并时，称~$X$~为~$R$~可定义的；否则称~$X$~为~$R$~不可定义的。~$R$~可定义集
+也称作~$R$~精确集，而~$R$~不可定义集也称为~$R$~非精确集或~$R$~粗糙集（rough
+set）。
+
+对于粗糙集可以使用两个精确集，即粗糙集的上近似和下近似来刻画。
+
+
+
+对于知识库~$K = (U, \pmb{R})$~，对于每个子集~$X \subseteq U$~和一个等价关
+系~$R \in ind(K)$~，我们定义如下两个子集：
+
+\begin{define}\supercite{roughSetChinese}
+	\begin{equation}
+		\underline{R}X = \bigcup \{ Y \in U/R \mid Y \subseteq X \}
+	\end{equation}
+\end{define}
+
+\begin{define}\supercite{roughSetChinese}
+	\begin{equation}
+		\overline{R}(X) = \bigcup \{ Y \in U/R \mid Y \cap X \neq \emptyset \}
+	\end{equation}
+\end{define}
+分别称它们为~$X$~的~$R$~下近似集和~$R$~上近似集\supercite{SlowinskiVanderpooten96Generalized,Pomykala93Approximation,ZhuHe00TheAxiomization,ZhuHe00Logic}。
+
+或者这样表示：
+
+\begin{equation}
+	\underline{R}X = \{ x \in U \mid [x]_R \subseteq X \}
+\end{equation}
+\begin{equation}
+	\overline{R}X = \{x \in U \mid [x]_R \cap X \neq \emptyset \}
+\end{equation}
+
+如\figref{fig:roughset}所示即为粗糙集的形象表示：如果我们的知识最小粒度是图中的单位方框，其中不规则折线框出的部分就是粗
+糙集本身，而中间上色的区域则是它的下近似，外面的虚线框则表示它的上近似。
+
+\easyfig{0.6}{fig/roughbasic.1}{粗糙集}{Rough set}{fig:roughset}
+
+\section{知识约简}
+知识约简是粗糙集理论的核心内容之一。知识库中的知识（属性）并不是同等重要的，甚至其
+中某些知识是冗余的，而知识约简就是在保持分类能力不变的前提下，删除知识库中不相关或
+不重要的知识（属性）。
+
+知识约简中有两个基本的概念：约简（reduct）和核（core）。
+\begin{define}\supercite{roughSetChinese}
+	令~$\pmb{R}$~是一族等价关系，~$R \in \pmb{R}$~，如果
+	\begin{equation*}
+		ind(\pmb{R}) = ind( \pmb{R} - \{R\} )
+	\end{equation*}
+	则称~$R$~为~$\pmb{R}$~中不必要的；否则称~$R$~为~$\pmb{R}$~中必要的。
+
+	如果每一个~$R \in \pmb{R}$~都为~$\pmb{R}$~中必要的，则称~$\pmb{R}$~为
+	独立的；否则称~$\pmb{R}$~为依赖的。
+\end{define}
+
+\begin{define}\supercite{roughSetChinese}
+	设~$\pmb{Q} \subseteq \pmb{P}$~，如果~$\pmb{Q}$~是独立
+	的，且~$ind(\pmb{Q}) = ind(\pmb{P})$~，则
+	称~$\pmb{Q}$~为~$\pmb{P}$~的一个约简。显然，~$\pmb{P}$~可以有多
+	种约简。~$\pmb{P}$~中所有必要关系组成的集合称为~$\pmb{P}$~的核，记作~$core(\pmb{P})$~。
+\end{define}
+
+而且我们知道：
+\begin{theorem}\supercite{roughSetChinese}
+	$core(\pmb{P}) = \bigcap red(\pmb{P})$，其中~$red(\pmb{P})$~表
+	示~$\pmb{P}$~的所有约简。
+\end{theorem}
+
+~$core$~这个概念，一方面可以作用所有约简的计算基础，另一方面可解释为不可消去的
+知识特性集合。
+
+在应用中，更常用的是“相对约简”和“相对核”的概念。为此，我们先要定义一个分类相对
+另一分类的“正域”。
+
+\begin{define}
+	令~$P$~和~$Q$~为~$U$~中的等价关系，~$Q$~的~$P$~正域记为~$pos_P(Q)$~，即
+	\begin{equation}
+		pos_p(Q) = \bigcup_{X \in U/Q} \underline{PX}
+	\end{equation}
+\end{define}
+
+令~$\pmb{P}$~与~$\pmb{Q}$~为等价关系族，~$R \in \pmb{P}$~，如果
+\begin{equation}
+	pos_{ind(\pmb{P})}(ind(\pmb{Q})) = pos_{ind(\pmb{P} - \{R\})}(ind(\pmb{Q}))
+\end{equation}
+则称~$R$~为~$\pmb{P}$~中~$Q$~不必要的；否则称~$R$~为~$\pmb{P}$~中~$Q$~
+必要的。在不至混淆的情况下，也用~$pos_{\pmb{P}}(\pmb{Q})$~代
+替~$pos_{ind(\pmb{P})}(ind(\pmb{Q}))$~。
+
+如果~$\pmb{P}$~中的每个~$R$~都是~$\pmb{Q}$~必要
+的，称~$\pmb{P}$~为~$\pmb{Q}$~独立的。
+
+设~$\pmb{S} \subseteq
+\pmb{P}$~，~$\pmb{S}$~为~$\pmb{P}$~的~$\pmb{Q}$~约简当且仅
+当~$\pmb{S}$~是~$\pmb{P}$~的~$\pmb{Q}$~独立子族
+且~$pos_{\pmb{S}}(\pmb{Q}) =
+pos_{\pmb{P}}(\pmb{Q})$~。~$\pmb{P}$~的~$\pmb{Q}$~约简称为相对
+约简。
+
+~$\pmb{P}$~中所有~$\pmb{Q}$~必要的原始关系构成的集合称
+为~$\pmb{P}$~的~$\pmb{Q}$~核，简称相对核，记
+为~$core_{\pmb{Q}}(\pmb{P})$~。
+
+类似的，我们有：
+\begin{theorem}\supercite{roughSetChinese}
+	~$core_{\pmb{Q}}(\pmb{P}) = \bigcap
+	red_{\pmb(Q)}(\pmb{P})$~，其中~$red_{\pmb{Q}}(\pmb{P})$~是所
+	有~$\pmb{P}$~的~$\pmb{Q}$~约简构成的集合。
+\end{theorem}
+
+之所以用“相对”的概念，是因为在以“决策表”为表达形式的应用中来说，实际用的就是
+它。
+
+\section{决策表模型}
+\label{sec:decisionTable}
+
+一个信息系统~$S$~是一个系统~$S = (U,A)$~，其中~$U = \{u_1, u_2 \dots u_{|U|}\}$~是
+有限非空集，称为论域。~$U$~中的元素称为对象，~$A = \{a_1, a_2 \dots
+a_{|A|}\}$~也是有限非空集，~$A$~中的元素称为属性，对每个~$a \in A$~，有一个映
+射~$a : U \rightarrow a(U)$~，且~$a(U) = \{a(u)|u \in U\}$~称为属性~$a$~的值域。
+如果~$A = C \cup D$,$C \cap D = \emptyset$~，则称信息系统~$(U, A)$~为一个决策
+表，其中~$C$~中的属性称为条件属性，~$D$~中的属性称为决策属性，如\figref{fig:decision}所示。
+\easyfig{0.6}{fig/decision.1}{决策表模型}{Decision Table Mode}{fig:decision}
+
+在应用粗糙集理论时，有一些概念上的改变和另一些新的概念的提出。
+
+\section{两类决策表}
+\basic{}
+
+如果这个决策表中~$\forall x,y \in U,  C_x = C_y \rightarrow D_x = D_y$，那么这个决策表就叫作“一致”决策表，否则就叫作不一致”决策表。这个定义实质上是在说：如果一个决策中，同样的条件属性必然有同样的决策属性，它就是一致的，否则就是不一致的。
+
+这一定义的应用意义在于，我们能不能通过条件属性确定的判断决策属性的值，对于一致决策表，是可能的；对于不一致的决策表，则是不可能的。这样，在做规则生成时，就要作不同的考虑：对于一致决策表，规则的数据覆盖率应该是~$100\%$~的；对于不一致决策表，规则的覆盖率应该是尽可能高的。这一点会在\chpref{chp:alg}有详细的论述。
+
+
+\section{支持子集和支持度}
+在决策表~$(U, A)$~中，对于每个属性~$a \in A$~，引入~$U$~中的一个划分~$U/a$~：两
+个对象~$u,v \in U$~在同一类中当且仅当~$a(u) = a(v)$~。设~$W \subseteq U $~，对
+于划分~$U/a$~，定义~$W$~的下近似为
+\begin{equation}
+	W^{(U/a)^-} = \bigcup_{V \in U/a,V \subseteq W }V
+\end{equation}
+也用~$S_a(W)$~来表示，称为~$W$~关于属性~$a$~的支持子集，~$spt_a(W) =
+|S_a(W)|/|U|$~称为~$W$~关于属性~$a$~的支持度；这个概念意味着规则“~$a$~蕴
+涵~$y=y(W)$~”有强度~$spt_a(W)$~。定义~$W$~的上近似为
+\begin{equation}
+	W^{(U/a)^+} = \bigcup_{V \in U/a,V \cap W \neq \emptyset}V
+\end{equation}
+~$acc_a(W) = |W^{(U/a)^-}|/|W^{(U/a)^+}|$~称为~$W$~关于属性~$a$~的近似精度。
+
+对于决策属性~$D$~，我们考虑决策属性~$y \in D$~的整体决策，它关于属性~$a \in
+C$~的支持子集和支持度为：
+\begin{equation}
+	S_a(y) = \bigcup_{W \in U/y}W^{(U/a)^-} = \bigcup_{W \in U/y}(\bigcup_{V \in
+	U/a,V \subseteq W}V)
+\end{equation}
+
+\begin{equation}
+	spt_a(y) = |\bigcup_{W \in U/y}W^{(U/a)^-}|/|U|
+\end{equation}
+
+\section{多条件支持度}
+令~$W \subseteq U$~是~$U$~的子集，现在考虑~$W$~关于条件属性集的支持度。对
+于~$(U, C \cup D)$~中的条件属性集~$X \subseteq C$~，~$W$~关于~$X$~的支持子集
+是
+\begin{equation}
+	S_X(W) = W^{(U/X)^-} = \bigcup_{V \in U/X, V \subseteq W}V
+\end{equation}
+相应的，~$W$~关于~$X$~的支持度定义为
+\begin{equation}
+	spt_X(W) = |W^{(U/X)^-}|/|U|
+\end{equation}
+
+简单地，~$S_X(Y)$~意味着规则“~$X$~蕴涵~$Y$~”有强度~$spt_X(Y)$~。
+\section{重要性和相对核}
+令~$\emptyset \subset X \subseteq C$~, ~$\emptyset \subset Y \subseteq D$~,
+~$U/Y \neq U/ \delta = {U}$~。给定~$x \in X$~，若~$S_{X - \{x\}}(Y) \subset
+S_X(Y) $~，则称~$x$~在~$X$~中相对于~$Y$~是重要的，如果~$S_{X - \{x\}}(Y) =
+S_X(Y)$~，则称~$x$~在~$X$~中相对于~$Y$~是不重要的。对于给定的~$x \in X$~，定
+义~$x$~在~$X$~中的重要性（相对于~$Y$~）为
+\begin{equation}
+	sig_{X-\{x\}}^Y(x) = (|S_X(Y)| - |S_{X - \{x\}}(Y)|)/|U|
+\end{equation}
+特别的，当~$X = \{x\}$~时，用~$sig^Y(x)$~来表示~$sig_{\emptyset}^Y(x)$~，此时
+有
+\begin{equation}
+	sig^Y(x) = sig_{\emptyset}^Y(x) = |S_x(Y)|/|U|
+\end{equation}
+所有在~$X$~中相对于~$Y$~是重要的属性~$x \in X$~组成的集合称为~$X$~相对于~$Y$~
+的核。
+
+\section{相对约简}
+
+在决策表中，我们关心的是决策属性的预测和决策规则的生成，所以，相对于决策属性的
+知识约简更为合理和有意义\supercite{ZhuWang03Reduction,WangDuntschBell98Data}。
+
+在决策表中，相对于决策属性，不同的条件属性可能具有不同的重要性，我们用“重要性
+”来区分这一点：
+\begin{define}
+	令~$C$~和~$D$~分别为条件属性集和决策属性集，属性子集~$C' \subseteq C$~关
+	于~$D$~的重要性定义为
+	\begin{equation}
+		\sigma_{CD}(C') = \gamma_{C}(D) - \gamma_{C - C'}(D)
+	\end{equation}
+	其中，
+	\begin{equation}
+		\gamma_{C}(D) = |pos_C(D)|/|U|
+	\end{equation}
+\end{define}
+
+
+已经知道，找所有约简的时间复杂性是指数的。而找出最小约简是~$NP-hard$~的。于是，
+对于这一操作，有了很多启发式的算法，例如~$Quick-Reduct$~的方法
+\supercite{RoughSet-AidedFeatureSelectionforAutomaticWeb-PageClassification}
+
+QuickReduct(C, D, R)
+
+输入： 所有的条件属性之集~$C$~
+
+所有的决策属性之集~$D$。
+
+输出：$C$~的约简~$R$~($R \subseteq C$)
+
+1.\ \ \ $R \leftarrow \emptyset$
+
+2.\ \ \ do
+
+3.\ \ \ \ \ \ $T \leftarrow R$
+
+4.\ \ \ \ \ \ $\forall x \in (C - R)$
+
+5.\ \ \ \ \ \ \ \ if\ $\gamma_{R \cup {x}}(D) > \gamma_T(D)$
+
+6.\ \ \ \ \ \ \ \ \ \ \ $T \leftarrow R \cup {x}$
+
+7.\ \ \ \ \ \ $R \leftarrow T$
+
+8.\ \ \ until\ $\gamma_R(D) = \gamma_C(D)$
+
+9.\ \ \ return\ $R$
+
+\section{规则生成}
+
+在决策表中，最重要的是决策规则的产生。
+
+决策规则定义如下：
+\begin{equation}
+	r_{ij}:dex(X_i) \rightarrow des(Y_j), Y_j \cap X_i \neq \emptyset
+\end{equation}
+规则的确定性因子：
+\begin{equation}
+	\mu(X_i, Y_j) = |Y_j \cap X_i|/|X_i|, 0 < \mu(X_i, Y_j) \le 1
+\end{equation}
+
+当~$\mu(X_i, Y_j) = 1$~时，~$r_ij$~是确定的；否则是不确定的。
+
+当然，一般在产生决策规则之前，先对决策表进行属性约简，能达到更简洁的结果。
+而且，对于多个规则，可能可以合并。\supercite{ruleReduct,PalMitraMitra03rough}
+
+\section{粗糙集应用中存在的辩证关系}
+在粗糙集作为数据挖掘算法的应用中，存在着很多辩证的关系，需要在两个矛盾之间取一
+个折衷点，这样的情况有很多种，下面分别讨论之。
+
+\subsection{键属性}
+原始数据一般存放在数据库的表中，而数据库的每个表结构中，都有一个称为“键”的属
+性，这个属性的定义一般是这样的：它的唯一的，它是不可空的。这样的定义是为了“区
+分”各个不同的记录（或者等价于数据挖掘中的~$instance$~），使得可以用“键”来唯一
+的标识一个记录。
+
+然而，在数据挖掘工作中，无论采用什么技术，都是不考虑这一属性的。正是由于它的
+“唯一标识”的性质，使用其它的属性都变得“无关紧要”，因为关于某一记录的所有其它属
+性都能通过它得到。在粗糙集方法中，可以证明，虽然它可以任何精确的刻画讨论的集合
+（使任何集合都变成“精确集”），但是如果有“键属性”的存在，在做属性约简
+时，将把所有的其它属性都约简掉，这不是我们所希望的。理由如下：
+\begin{enumerate}
+	\item 数据挖掘的目的是找出数据中存在的“模式”，只对单体有意义的东西，不能称之为
+		“模式”。
+	\item 对已有数据作这样的区分，得到的结论对新的数据没有任何指导意义，因为新的数
+		据和已有的数据在“键属性”上必然是不同的。
+\end{enumerate}
+
+不仅是“键属性“，任何与“键属性”有等价关系的属性（即可以“唯一标识”事例的属性）都
+不在考虑之列，比如身份证号、学号、毕业证号等等。作为数据挖掘的原始数据，不应该
+包含这样的属性信息。
+
+可以看到，虽然有些属性可以任何精确的刻画讨论的集合，却不能引入讨论的范围，可以
+说是一种“精确”和“粗糙”之间的折衷。
+
+\subsection{规则的确定性和条数}
+和关于“键属性”的讨论类似，在生成决策规则时，也有类似的折衷。
+
+对于一个没有重复事例的决策表，如果把每一个事例都作为一
+条规则的话，显然，得到的所有的规则都是确定的。但是，这样的规则也将
+是无意义的。理由如下：
+\begin{enumerate}
+	\item 由于事例没有重复，意味着规则的条数和事例一样多，数据量一般是庞大的，规则
+		数也将是庞大的，要找到匹配的规则将耗费很长时间。
+	\item 由于事例没有重复，意味着每一条规则都不能应用于新的数据。
+\end{enumerate}
+
+相对的，如果我们只考虑事例的某几个属性，生成少量的不是很确定的规则，匹配起来将
+会容易的多，而且，少量的属性描述意味着规则简单和易于匹配，新的事例也更容易和已
+有的规则相匹配，从而实现预测的目的。
+
+\chapter{对于经典粗糙集理论的几点思考}
+\label{chp:think}
+\section{划分不是必须的}
+从\chpref{chp:theroy}中可以看出，在对决策表模型应用粗糙集相关的算法时，划分是整个过程的第一步操作，也是所有后继操作的基础。然而，对于任给的一组属性集~$A$，对于划分~$U/A$~的计算，其时间复杂度都至少是~$O(n)$~的，在数据量巨大时（这个假设在数据挖掘时几乎总是成立的），时间的花费将是巨大的。虽然我们可以用~$cache$~的方法来适当减少计算，但是空间的浪费又将是巨大的。下面我们来论证，“划分”这个操作，在进行规则生成过程中，不是必须的。
+\subsection{划分的实质是什么}
+划分的实质是什么呢？
+
+从\chpref{chp:theroy}中可以看出，划分的最直接目的是为了计算“下近似”，而“下近似”正是用来描述粗糙集的核心概念之一。从这一方面分析，划分的实质作用在于：把决策表中的数据按照不同的属性集，分成不同的类，然后可以通过这些类的隶属关系用下近似的概念来刻画我们关心的决策属性和条件属性集之间的关系。
+
+从数学角度来分析，它的作用在于，对于任给的属性集~$C' \subseteq C $~,把决策表变成相应的分类集合~$U/C'$~。而对于决策属性集~$D$~，相应的分类集合~$U/D$~看作是集合的精确描述，而用“下近似”来表~$U/C$与~$U/D$~之间的关系。这样，就把一个应用问题转化为一个纯数学的问题。
+
+对于~$\forall P \subseteq A$~而言，设~$U/P = \vv{P}{n}$~，从划分的定义可以知道，~$\forall x,y \in U/P, x \neq y$~，我们有~$x \cap y = \emptyset$~。？？？？
+
+\subsection{必要性分析}
+下面我们来分析一下“划分”这一操作的必要性。
+
+粗糙集理论和方法的基础概念是“上下近似”，其它概念都是围绕它们展开定义的。从上一节的分析可以知道，“划分”只是为了建立从应用问题到数学问题这样一个桥梁，那么，我们显然可以采用一种更直接的映射，从应用问题直接映射到上下近似，通过省去“划分”这一步骤，简化算法的时间复杂度在规则生成算法中，实际关心的是“下近似”，本文提出的算法也是基于“下近似”概念的。
+
+这一思想的可行性分析如下：
+
+\basic{}
+
+对于两个属性集~$P_1,P_2 \subseteq A$~，设~$U/P_1 = \vv{P^1}{r}, U/P_2 = \vv{P^2}{s}$~，~$P_1$~对于~$P_2$~的下近似为
+\begin{equation*}
+	hello  
+	\label{equ:aaa}
+\end{equation*}
+\section{计算全部下近似不是必须的}
+\section{精确下近似（或者说完全下近似）是不是必须的}
+\section{重要性，支持度等等概念是不是必须的}
+\section{约简是不是必须的}
+\section{算法的复杂性分析和证明}
+\section{其他算法的复杂性分析及证明或引用证明}
+\section{关于覆盖率的证明}
+\section{关于平均规则长度的对比及证明}
+\section{关于属性排序的问题}
+可以考虑把分类少的属性放在前面，因为少的类等价于大的覆盖率。
+
+\section{要解释的概念}
+\begin{enumerate}
+	\item 结构主义和结构化
+	\item 公理化
+	\item 自恰
+\end{enumerate}
+
+要举的例子
+
+\begin{enumerate}
+	\item 几个公理体系（六种粗糙集）
+	\item 几种生成规则的算法
+\end{enumerate}
+
+\section{对规则生成方法的再认识}
+现在应用粗糙集理论生成规则的算法有。。。。。，它们都是先对数据进行约简，然后
+应用约简后的属性集生成规则。不同的算法在于约简算法的不同。然
+而，~$Kohavi$~和~$Frasca$~用实验证明，数据库中最有用的子集并不一定是粗糙集中
+的相对核，甚至可能不包括完全的核属性
+集\supercite{usefulFeatureSubsetsAndRoughSetReducts,roughSetChinese}。在本论文研
+究的算法中，考虑的是不使用传统的属性约简算法，而是直接应用“下近似”的概念，从
+数据集来生成规则。这就需要对理论中的“下近似”的概念作进一步的认识。
+\section{对“下近似”概念的再认识}
+粗糙集理论，现在已经结构化和公理化，即它的理论核心可以归结为从几个不加证明的公理推导出来的一整套自怡的理论体系。例如：。。。。可以看出，在粗糙集理论的公理化系统中，最核心的概念是“下近似”和“上近似”。
+从\chpref{chp:theroy}中我们知道：在决策表模型~$(U,A), A = C \cup D, C
+\cap D = \emptyset$~中，对于属性集~$A，B \in C，A \cap B = \emptyset$~，可以把~$A$~看做在这个决策表中对于~$B$~的下近似，如果它们满足：
+\begin{equation*}
+	\forall a \in U/A, \exists b \in U/B (a \subseteq b)
+\end{equation*}
+由于这个运算是整个粗糙集理论中的基本运算，所以它的效率将直接影响到任何一个算法
+的效率。从定义可以看出，这个运算包含了如下几种操作：
+\begin{enumerate}
+	\item 求划分 （~$U/A， U/B$~）
+	\item 判断隶属关系 （~$a \subseteq b$~）
+\end{enumerate}
+这个定义在应用时有以下几种用法：
+\begin{enumerate}
+	\item 判断~$A$~是不是~$B$~的下近似，如果是，那么可以直接用~$A$~来描述~$B$~，也
+		就是说~$A$~是~$A \cup B$~的一个约简，如果~$B$~是决策属性，那么~$A$~就是~$B$~
+		的相对约简。这也是采用“先约简，后生成规则”的算法的基本思想。
+	\item
+\end{enumerate}
+
+如果按这个定义来计算的话，结果会不会好一些呢？
+
+\section{关于新的想法}
+\begin{enumerate}
+	\item 上下近似，这两个概念是必须的吗？如果不完全用这两个概念呢？显然也不会影响规则的生成。如何证明呢？我们可以只用部分下近似就可以了，而且，这样的算法更加简单。
+	\item 比如我会用到这样的两种描述：
+		\begin{enumerate}
+			\item $x = A$ 时，$\forall y = B$吗？
+			\item $x = ?$ 时，$\exists y = B|C$吗？
+		\end{enumerate}
+\end{enumerate}
+
+
+
+\chapter{新算法和相关的理论依据}
+\label{chp:alg}
+
+经典的粗糙集规则生成算法是基于“约简”的，很大一部分相关的优化算法也是针对“约简” 操作所作的优化。具体如\figref{fig:classic}所示。
+\easyfig{0.6}{fig/classic.1}{经典粗糙集规则生成算法}{Classic Rough Set Theory's Rules Generation Algorithm}{fig:classic}
+而我们所研究的这个新的算法是不依赖于约简的。
+形象地来说，如果用决策表系统来表示数据的话，关于经典算法和本文的算法的描述如\figref{fig:diff}所示。
+\easyfig{0.6}{fig/diff.1}{经典算法与本文算法的比较}{Comparison of Classic and Our Algorithms}{fig:diff}
+
+
+算法如下：
+
+\begin{figure}
+	\begin{framed}
+		\begin{algorithmic}[1]
+			\REQUIRE  对于决策表系统~$T = (U,C \cup D), \ C \cap D = \emptyset$
+			\ENSURE 包含所有生成规则的集合~$Rules$~
+			\STATE $Rules \leftarrow \emptyset$
+			\STATE \label{step:muti}计算~$C$~的幂集并把其中的元素按集合的基从小到大排序，即~$Q = 2^C = \vv{Q}{r}$~，其中对于~$1 \leq x < y \leq r$~满足~$|Q_x| \leq |Q_y|$~
+			\STATE ~$S \leftarrow T$~
+			\STATE ~$i \leftarrow 1$~
+			\STATE \label{step:sigs}对于~$Q_i$~和~$S$~执行单属性规则生成算法\sigFName{}(\sigName{})(详见图\ref{alg:sig})，设生成的规则集为~$R'$~
+			\STATE~$Rules \leftarrow Rules \cup R'$~
+			\STATE 计算~$R'$~在~$S$~中未覆盖的元素~$S'$~
+			\IF{~$S' \neq \emptyset\mbox{  } \&\&\mbox{  } i <= r$~}
+			\STATE ~$S \leftarrow \{S',C \cup D\}, i = i+1$~
+			\STATE 跳到第~\ref{step:sigs}~步执行
+		\ENDIF
+		\STATE 把~$Rules$~作为结果返回
+	\end{algorithmic}
+\end{framed}
+\caption{\aFName{}(\aName{})}
+\label{alg:alg}
+\end{figure}
+%
+
+\begin{figure}
+	\begin{framed}
+		\begin{algorithmic}[1]
+			\REQUIRE 属性集~$E$~和决策表~$K = \{U, C \cup D\}$~
+			\ENSURE 规则集~$R$~
+			\STATE ~$R \leftarrow \emptyset$~
+			\STATE 对于~$\forall u \in U$~，用二元组~$\{E_u, D_u\}$~来表示，删除重复项，并设新的二元组集合为~$U'$~
+			\STATE 对于~$U'$~中元素，按第一项分组，即把第一项相同的元素分到同一组
+			\STATE 删除组中元素个数大于~$1$~的组，只留下“单元素”组
+			\STATE 把这些组中的元素表示成规则的形式~$E_u \Rightarrow D_u$~，并加入~$R$~中
+			\STATE 把~$R$~作为结果返回
+		\end{algorithmic}
+	\end{framed}
+	\caption{\sigFName{}(\sigName{})}
+	\label{alg:sig}
+\end{figure}
+
+可以看到，\aName{}中没有明确使用“划分”、“下近似”和“约简”这样的概念。但是它用到的其实是“下近似”概念在规则生成算法中的表现形式。
+下面的几节我们将要证明，我们的算法满足以下性质：
+
+\begin{enumerate}
+	\item 对于一致决策表，\aName{}能达到~$100\%$~的数据覆盖率
+	\item 对于所有的决策表，\aName{}与经典的粗糙集方法产生的规则具有相同的表现力和覆盖率
+	\item \aName{}的时间复杂度为~$kkkk$~，小于经典方法的~$ppp$~，与其它改进方法的时间复杂度相当
+	\item 与其它几种算法相比，\aName{}生成的规则具有更小的规则长度
+\end{enumerate}
+
+如没有特别声明，以下几节采用如下约定:
+
+\numBasic{}
+
+\section{覆盖率分析}
+\begin{theorem}
+	对于一致决策表，\aName{}能达到~$100\%$~的数据覆盖率。
+	\label{thm:coverd}
+\end{theorem}
+
+要证明这个定理，我们还需要用到下面的引理：
+
+\begin{lemma}
+	\begin{math}
+		\forall A,B \in C, \forall x,y \in U, \ps{A}{x} \neq \ps{A}{y} \Rightarrow \ps{(A \cup B)}{x} \neq \ps{(A \cup B)}{y}
+	\end{math}
+	\label{lem:extend}
+\end{lemma}
+
+证明如下：
+\begin{proof}
+	用反证法：由已知，$\forall A,B \in C, \forall x,y \in U$，假设~$\ps{(A \cup B)}{x} = \ps{(A \cup B)}{y}$\\
+	~$\because A \subseteq (A \cup B), \ps{(A \cup B)}{x} = \ps{(A \cup B)}{y}$~\\
+	~$\therefore \ps{A}{x} = \ps{A}{y}$~\\
+	显然这是与~$\ps{A}{x} \neq \ps{A}{y}$~相矛盾的。\\
+	~$\therefore$~假设错误，命题得证。
+\end{proof}
+
+下面我们用引理~\ref{lem:extend}~来证明定理~\ref{thm:coverd}:
+
+\begin{proof}
+	我们还用反证法：假设算法不能完全覆盖数据集，也就是说，在最后一次循环结束后，~$S \neq \emptyset$~，下面来证明，这是不可能的，即 在这最后一步中，不可能存在这样的二元组\pozhehao~($\ps{C}{x} = \ps{C}{y} \&\& \ps{D}{x} \neq \ps{D}{y}$~)。
+
+	在最后一次~$oneRule$~过程中，设~$S = (U', C \cup D), U' \subseteq U$~，此时，
+
+	~$\because$~由一致性的定义，对于~$\ps{D}{x} \neq \ps{D}{y}$~的任意~$x,y \in U$~， ~$\exists K \subseteq C$~使得~$\ps{K}{x} \neq \ps{K}{y}$~\\
+	~$\therefore$~对于~$\ps{D}{x} \neq \ps{D}{y}$~的任意~$x,y \in U$~, ~$\ps{C}{x} \neq \ps{C}{y}$~(由上面证明的引理可知)\\
+	~$\therefore$~对于~$\ps{D}{x} \neq \ps{D}{y}$~的任意~$x,y \in U'$~, ~$\ps{C}{x} \neq \ps{C}{y}$~\\
+	亦即，~$\ps{C}{x} = \ps{C}{y}$~与~$\ps{D}{x} \neq \ps{D}{y}$~不能同时满足，假设错误，命题得证。 
+
+\end{proof}
+
+\begin{theorem}
+	对于不一致决策表，\aName{}能达到和经典算法一样的数据覆盖率。
+	\label{thm:coverdtwo}
+\end{theorem}
+\begin{proof}
+	设不一致决策表为~$K = (U, A)$~，在\thmref{thm:coverd}中，我们已经证明，对于一致辞的决策表，\aName{}可以有和经典算法一样的~$100\%$~的数据覆盖率。对于不一致数据集中那些不一致的数据，由定义，它不可能出现在任一条规则中，也就是说，这些数据不能被经典算法和/或\aName{}中任何一条规则所描述，那么，如果从原数据集~$U$~中删掉全部不一致的数据，原数据集将变成一个新的一致的数据集~$U'$~，原决策表变为~$K' = (U', A)$~，这个我们在下面的\lemref{lem:chang}中给出证明。而对于一致决策表~$K'$~，\aName{}与经典算法都可以达到~$100\%$~的数据覆盖率，也就是说，对于~$U'$~中的元素，都能被两种算法中的规则完全覆盖，而~$(U - U')$~中的数据则都不能覆盖，所以，对于不一致决策表~$K$~，经典算法和\aName{}形成的规则的数据覆盖率都为~$|U'|/|U|$~，定理得证。
+\end{proof}
+
+\begin{lemma}
+	从不一致决策表中去掉全部不一致的数据项，决策表将变成一致的数据表。
+	\label{lem:chang}
+\end{lemma}
+\begin{proof}
+	设~$K = (U, C \cup D)$~为不一致决策表，由定义，其中存在这样的数据项~$x,y$~和属性集~$M$~，使得~$\ps{M}{x} = \ps{M}{y}$~ 但是~$\ps{D}{x} \neq \ps{D}{y}$~。如果把所有这样的~$x, y$~都去掉，显然决策表已经没有了“不一致”的条件，成为一致的决策表，引理得证。
+\end{proof}
+
+\section{时间复杂度分析}
+
+\begin{theorem}
+	在决策表模型中，设属性数共有~$m$~个，至少有一个属性不同的数据数为~$n$~个，决策属性只有~$r$~个，~$r << m$~，亦即，条件属性有~$m-r$~个，经典算法的最坏时间复杂度为~$T_{classic}^{max} = O(？？？？？？？)$~。
+	\label{thm:classiccomplex}
+\end{theorem}
+
+证明如下：
+\begin{proof}
+	这个呢？
+\end{proof}
+
+对于一些改进的算法，如决策矩阵法，快速约简法。。。。等等。
+
+\begin{theorem}
+	在决策表模型中，设属性数共有~$m$~个，至少有一个属性不同的数据数为~$n$~个，决策属性只有~$r$~个，~$r << m$~，亦即，条件属性有~$m-r$~个，经典算法的平均时间复杂度为~$T^{max} = O(？？？？？？？)$~。
+	\label{thm:classiccomplex}
+\end{theorem}
+
+证明如下：
+\begin{proof}
+	这个呢？
+\end{proof}
+
+\begin{theorem}
+	在决策表模型中，设属性数共有~$m$~个，至少有一个属性不同的数据数为~$n$~个，决策属性只有~$r$~个，~$r << m$~，亦即，条件属性有~$m-r$~个。则\aName{}的最差时间复杂度是~$O(2^m \times n^2)$~
+	\label{thm:maxcomplex}
+\end{theorem}
+
+下面我们来证明\thmref{thm:maxcomplex}。
+\begin{proof}
+	首先，各个条件属性分别为~$\vv{A}{m-1}$~，决策属性为~$A_m$~，各个属性对应的划分数分别为~$\vv{D}{m}$~，一般地，数据量是海量的，即有~$m << n, D_i << n$~。基于此，我们按以下步骤来分析：
+
+	对于计算好的属性集序列，每轮循环，设当前用到的属性集（含决策属性）为~$B = \{B' \cup D\} = \vv{B}{k}$~，对应的划分数分别为~$\vv{S}{k}$~，需要用的操作如下：
+	\begin{enumerate}
+		\item 对当前的数据集，得到每个数据对应的（条件属性值，决策属性值）二元组描述。这个操作只需要遍历数据集即可，复杂度为~$t_1 = O(n)$~
+		\item 把得到的二元组分组，并标记之，相当于先把二元组排序，再把排序后的二元组遍历，遍历时，如果访问的二元组与前一个相同，就归入上一组，不同，就新设一个组。由二元组的特点，排序可以用“快速排序”来做，而“快速排序”的复杂度，最坏为~$O(n^2)$~，所以这一步的复杂度，最坏为~$t_2^{max} = O(n) + O(n^2) = O(n^2)$~。
+		\item 设分组结束后，分得的组数为~$z$~,显然，~$z$~的最大值为~$z^{max} = \prod^k_{i = 1}S_i$~。
+		\item 这次分组后，不能形成规则的数据集设为~$Y$~，亦即对于~$\forall y \in Y$~，均有~$\exists y' \in Y$~, 使得~$\ps{B'}{y} = \ps{B'}{y'} \&\& \ps{D}{y} \neq \ps{D}{y'}$~成立。这里，显然~$|Y|$~最大值为当前分组数，即都不能形成规则，~$|Y|^{max} = z^{max}$~。
+	\end{enumerate}
+	这样，算法的最差时间复杂度为：
+	
+	当每一步都取最坏结果，且决策表不能约简时，每个数据都要用全部属性来描述才能区分，此时，共要循环~$2^{m-1}$~次，每次均不能分组，复杂度为~$t_2^{max} = O(n^2)$~，这样，整个算法的最坏复杂度为~$T^{max} = 2^{m-1} \times t_2^{max} = 2^{m-1} \times O(n^2) = O(2^m \times n^2)$~
+\end{proof}
+这一结果说明，\aName{}在最差时间复杂度上，与经典算法是相当的。
+
+
+\begin{theorem}
+	在决策表模型中，设属性数共有~$m$~个，至少有一个属性不同的数据数为~$n$~个，决策属性只有~$r$~个，~$r << m$~，亦即，条件属性有~$m-r$~个。设\aName{}的平均时间复杂度是~$T^{mean} = O(??????)$~
+	\label{thm:meancomplex}
+\end{theorem}
+
+要证这一定理，需要用到\lemref{lem:groups}和\lemref{lem:rest}。
+
+\begin{lemma}
+	设在算法中考虑的当前属性数（含决策属性）为~$m$~，各属性对应的划分数分别为~$\vv{S}{m}$~，数据总数为~$n$~，则其形成的不同的（条件属性值，决策属性值）组合数的数学期望为~$E(n) = \Pi(1 - (\frac{\Pi - 1}{\Pi})^n$~，其中~$\Pi = \prod_{i = 1}^m S_i$~。
+	\label{lem:groups}
+\end{lemma}
+证明如下：
+\begin{proof}
+	显然，当~$n = 1$~时
+	\begin{equation}
+		E(n) = E(1) = 1。
+		\label{eq:e1}
+	\end{equation}
+
+	要求~$E(n)$~，假设我们已经知道了~$E(n-1)$~，那么，当增加第~$n$~个数据时，只有当它不同于以前出现的所有的数据，才会有数据项的增加。而当前共可能出现的组合数为~$\Pi = \prod_{i = 1}^m S_i$~，于是，由经典概率模型和数学期望的性质，我们有
+	\begin{equation}
+		E(n) = E(n - 1) + \frac{\Pi - E(n - 1)}{\Pi}
+		\label{eq:e2}
+	\end{equation}
+	结合\equref{eq:e2}和\equref{eq:e1}，令~$T = 1 - \frac{1}{\Pi}$~，我们有：
+
+	\begin{equation}
+		\left.
+		\begin{array}{rcl}
+			E(n) &=& E(n - 1) + \frac{\Pi - E(n - 1)}{\Pi}\\
+			&=& E(n - 1) + 1 - \frac{1}{\Pi} \times E(n - 1)\\
+			&=& (1 - \frac{1}{\Pi}) \times E(n - 1)  + 1\\
+			&=& T \times E(n - 1) + 1\\
+			&=& T \times (T \times E(n - 2) + 1) + 1\\
+			&=& T^2 \times E(n - 2) + T^1 + T^0\\
+			\cdots\\
+			&=& T^{n-1} E(1) + T^{n-2} + \cdots + T^1 + T^0\\
+			&=& T^{n-1} + T^{n-2} + \cdots + T^1 + T^0\\
+			&=& \frac{T^n - 1}{T - 1}\\
+			&=& \Pi(1 - (\frac{\Pi - 1}{\Pi})^n)
+		\end{array}
+		\right.
+		命题得证。
+		\label{eq:pi_t}
+	\end{equation}
+\end{proof}
+
+\begin{lemma}
+	设在算法中考虑的当前属性数（含决策属性）为~$m$~，即属性集为~$T_a = \vv{B}{m}$~，其中~$B_m$~为决策属性。各属性对应的划分数分别为~$\vv{S}{m}$~，当前要处理的数据总数为~$n$~，我们把完成分组后，可以被规则覆盖的数据称为“可分辨数据”，不能被形成的规则覆盖的数据称为“不可分辨数据”，则不可分辨数据数据量的数学期望为~$F(n) = KKK$~。
+	\label{lem:rest}
+\end{lemma}
+
+证明如下：
+\begin{proof}
+	设属性集~$T' = \vv{B}{m-1}$~，令~$\Pi^X$~表示属性集~$X$~中全部可能的组合数，~$E_x^Y$~表示当属性集为~$Y$~数据量为~$x$~时可能形成的组合数的数学期望，显然~$E_x^Y$~可由\lemref{lem:groups}来计算。
+
+	由定义，显然，当~$n = 1$~时，没有不可分辨数据，即有
+	\begin{equation}
+		F(1)  = 0
+		\label{eq:f1}
+	\end{equation}
+	同样地，按经典概率论和数学期望的性质，我们有；当新增加一条数据，使数据量从~$n - 1$~变为~$n$~时，有以下三种情况
+	\begin{enumerate}
+		\item 新数据与所有已知的数据属性组合都不相同，形成新的一种属性组合，此时~$F(n) = F(n-1)$~，这种情况出现的概率为~$P_1 = \frac{\Pi^{T_a} - E_{n-1}^{T_a}}{\Pi^{T_a}}$~
+		\item 新数据与可分辨数据中的一个相同，此时，~$F(n) = F(n-1)$~，这种情况出现的概率为~$P_2 = \frac{E_{n - 1 - F(n-1)^{T_a}}}{\Pi^{T_a}}$~
+		\item 新数据与不可分辨数据中的一个相同，此时，~$F(n) = F(n-1) + 1$~，这种情况出现的概率为~$P_3 = \frac{E_{F(n-1)}^{T_a}}{\Pi^{T_a}}$~
+		\item 新数据与原分辨数据中的几条数据形成新的不可分辨数据，此时，~$F(n) = F(n-1) + M + 1$~，其中，~$M$~为原数据中新的不可分辨的数据量，这种情况出现的概率为~$P_4 = E_(n-1)^{T_a}$
+	\end{enumerate}
+	由以上分析知：
+	\begin{equation}
+		F(n) = F(n - 1) \times (P_1 + P_2) + (F(n-1) + 1) \times P_3 + (F(n-1) + M + 1) \times P_4
+		\label{eq:omg}
+	\end{equation}
+\end{proof}
+
+下面我们来证明\thmref{thm:maxcomplex}。
+\begin{proof}
+	首先，在决策表模型中，设属性数共有~$m$~个，至少有一个属性不同的数据数为~$n$~个，为方便讨论，决策属性只有~$1$~个，亦即，条件属性有~$m-1$~个。设各个条件属性分别为~$\vv{A}{m-1}$~，决策属性为~$A_m$~，各个属性对应的划分数分别为~$\vv{D}{m}$~，一般地，数据量是海量的，即有~$m << n, D_i << n$~。基于此，我们按以下步骤来分析：
+
+	对于计算好的属性集序列，每轮循环，设当前用到的属性集（含决策属性）为~$B = \{B' \cup D\} = \vv{B}{k}$~，对应的划分数分别为~$\vv{S}{k}$~，需要用的操作如下：
+	\begin{enumerate}
+		\item 对当前的数据集，得到每个数据对应的（条件属性值，决策属性值）二元组描述。这个操作只需要遍历数据集即可，复杂度为~$t_1 = O(n)$~
+		\item 把得到的二元组分组，并标记之，相当于先把二元组排序，再把排序后的二元组遍历，遍历时，如果访问的二元组与前一个相同，就归入上一组，不同，就新设一个组。由二元组的特点，排序可以用“快速排序”来做，而“快速排序”的复杂度，平均为~$O(n\log{n})$~，最坏为~$O(n^2)$~所以这一步的复杂度，平均为~$t_2^{mean} = O(n) + O(n\log{n}) = O(n\log{n})$~。
+		\item 设分组结束后，分得的组数为~$z$~，其数学期望为~$z^{mean} = ???$~(\lemref{lem:groups})
+		\item 这次分组后，不能形成规则的数据集设为~$Y$~，亦即对于~$\forall y \in Y$~，均有~$\exists y' \in Y$~, 使得~$\ps{B'}{y} = \ps{B'}{y'} \&\& \ps{D}{y} \neq \ps{D}{y'}$~成立。其平均值同样要用数学期望算得：~$|Y|^{mean} = ???$~(\lemref{lem:rest})
+	\end{enumerate}
+	这样，算法的平均时间复杂度为：~$T^{mean} = O(????)$~
+
+\end{proof}
+
+\section{规则长度分析}
+
+我们定义了一个新的评测标准“平均规则长度”\vFName{}(\vName{})来评测不同算法生成规则的长度，这个标准既考虑了规则的数目，又考虑了相等数目下规则的长度，可以作为一个更加全面的标准\supercite{roughsetZheLiu}。
+\begin{define}
+	设规则集为~$R = \vv{r}{n}$~，设~$S$~表示\vFName{}，则~$S$~定义为：
+	\begin{equation}
+		S = \sum_{i = 1}^n attrNumber(r_i)
+		\label{equ:vFName}
+	\end{equation}
+	其中，~$attrNumber(r_i)$~表示规则~$r_i$~中出现的属性数。
+\end{define}
+
+对于算法\aName{}，我们有：
+\begin{theorem}
+	\aName{}产生的规则数不会多于经典粗糙集算法。
+	\label{thm:length}
+\end{theorem}
+
+\begin{proof}
+	显然，在极端情况下，决策表不能得进行约简时，所有的数据本身就形成规则，而且规则不能合并，此时经典算法和\aName{}产生的规则数将是相同的，都是数据总数。
+
+	在一般情况下，决策表可以约简或者规则可以合并时，由于\aName{}算法在第~\ref{step:muti}~步是先计算属性集的幂集的，此把它们按基的大小进行排列，这样，如果在经典算法中存在规则~$r_i, r_j$~是可以合并的，设合并后的规则为~$r$~，那么，必然有~$attrNumber(r) < attrNumber(r_i) \&\& attrNumber(r) < attrNumber(r_j)$~，而在\aName{}算法中，显然~$r$~中的属性集应该出现在~$r_i$~和~$r_j$~之前，也就是说，这样的规则一定会先被发现，换言之，即使有规则可以合并，也会在\aName{}算法中被提前发现。所以定理得证。
+\end{proof}
+
+\begin{theorem}
+	\aName{}的\vName{}不会长于经典粗糙集算法。
+\end{theorem}
+
+要证明定理~\ref{thm:length}，需要用到下面的引理：
+\begin{lemma}
+	在对~$Q_l$~进行完\sigName{}之后，产生的规则集就是算法\aName{}最终产生的结果规则集。
+	\label{lem:over}
+\end{lemma}
+
+证明如下：
+\begin{proof}
+	小 case
+\end{proof}
+
+下面我们用引理~\ref{lem:over}~来证明定理~\ref{thm:length}：
+\begin{proof}
+	difficult
+\end{proof}
+
+
+\section{实验环境}
+本论文的实验验证部分在\linux{}平台下用\haskell{}语言来完成。
+
+选用这样的实现环境，是出于以下几点考虑。
+\begin{enumerate}
+	\item \linux{}平台是我个人比较熟悉的平台
+	\item \linux{}平台相当稳定，适合做计算量比较大的工作
+	\item \haskell{}语言具有跨平台的特性，可以不加修改在各种主流操作系统上运行
+	\item \haskell{}语言是一种``Lazy''的语言，它会自动地只做能完成任务的最少的运算
+	\item \haskell{}语言是函数式语言的特性，使得它在这个多核和多处理器的时代，可以无需修改就自动并行计算
+	\item \haskell{}简练的语法，使得开发实现更加简洁，更不易出错
+	\item \haskell{}函数式语言的特性，使得“设计模式”“类型转换”这类在面向对象开发中很有用的东西变得极其自然，自然到根本不用去想，自己就能处理
+	\item \haskell{}语言是一种``形式化''的语言，它比~$C/C++, java, C\#, perl$~等等语言更接近于数学描述，这使得它更适合于描述理论性较强的算法，比如本文中的算法，更直观也更不容易出错
+\end{enumerate}
+
+另外要加以说明的是，作为一个算法验证和比较的程序，本文的实验系统没有图形用户界面（~$GUI$~），而是提供了很多精练和通用的接口，可以直接在其它程序中使用。从\haskell{}得到的另一个好处是，系统可以在各个层面无修改地重用。
+
+在实验数据方面，本论文采用的数据有：取自\uci{}的\iris{}数据集和\thsh{}数据集，\ctr{}数据集，学长提供的学生贷款数据集\loan{}等。
+
+由于经典粗糙集方法和一些改进的方法都是针对离散型数据的，所以对于这些数据集中的连续型数据，我们都首先进行了数据离散化处理，这样，就有了共同的比较基础。在数据离散化方面，用的是\rosetta{}软件提供的\scale{}方法。当然，还有其它的数据离散化方法，但是通过\chpref{chp:alg}的分析可以知道，算法是与离散化方法无关的。
+
+\section{重要代码分析}
+
+自定义的主要数据结构如下：
+
+\begin{framed} \begin{lstlisting}
+type Attribute = String
+type Value     = String
+type Element   = M.Map Attribute Value
+type MayRule = Rule
+
+type Rule=(M.Map Attribute Value, M.Map Attribute Value)
+type DecisionAttribute=(S.Set Attribute, S.Set Attribute)
+
+data RoughSet = RoughSet{
+	attributes :: DecisionAttribute,
+	elements   :: S.Set Element
+} deriving Show
+\end{lstlisting} \end{framed}
+
+主要函数原型如下：
+\begin{framed}\begin{lstlisting}
+combination :: [a] -> [[a]]
+genAttributeArray :: RoughSet -> [DecisionAttribute]
+covered :: Rule -> Element -> Bool
+onceRule :: RoughSet -> DecisionAttribute -> [Rule]
+rules' :: RoughSet -> [DecisionAttribute] -> [Rule]
+sigNotCoverd :: RoughSet -> Rule -> RoughSet
+notCovedRoughSet :: RoughSet -> [Rule] -> RoughSet
+rules :: RoughSet -> [Rule]
+elementShow :: Element -> String
+descRule :: Rule -> String
+coverRate :: RoughSet -> [Rule] -> Double
+ruleLength :: Rule -> Int
+meanLength :: RoughSet -> [Rule] -> Double
+genAttributeCombine :: DecisionAttribute -> 
+	[DecisionAttribute]
+subValue :: Element -> DecisionAttribute -> MayRule
+generateMayRule :: RoughSet -> DecisionAttribute -> 
+	[MayRule]
+filterMayRule :: [MayRule] -> [Rule]
+allNeeded :: RoughSet -> (Int, [String], Double, Double)
+writable :: (Int, [String], Double, Double) -> String
+buildRouset :: String -> RoughSet
+\end{lstlisting} \end{framed}
+
+\chapter{结论和展望}
+\label{chp:conclusion}
+\section{实验结果}
+
+数据集部分数据见~\tabref{tab:attr}，\tabref{tab:iris}，\tabref{tab:thsh}，\tabref{tab:yellow}，\tabref{tab:ctr}，\tabref{tab:loan}：
+
+
+\easytab{数据属性}{Attributes of the data set}{rccc}
+{数据集 & 属性个数 & 元素个数 & 数据类型}
+{
+\iris{}  & 5 & 150 & 连续 \\
+\thsh{}  & 5 & 215 & 连续 \\
+\yellow{}& 4 & 20 & 连续 \\
+\ctr{}   & 10& 21 & 离散 \\
+\loan{}  & 8 & 2059 & 离散\\
+}
+{tab:attr}
+
+\easytab{~$iris$~部分数据}{Part of data set iris}{ccccc}
+{sepal length(cm) & sepal width(cm) & petal length(cm) & petal width(cm) & class}
+{
+5.1 & 3.5 & 1.4 & 0.2 & Iris-setosa\\
+4.9 & 3.0 & 1.4 & 0.2 & Iris-setosa\\
+4.7 & 3.2 & 1.3 & 0.2 & Iris-setosa\\
+4.6 & 3.1 & 1.5 & 0.2 & Iris-setosa\\
+5.0 & 3.6 & 1.4 & 0.2 & Iris-setosa\\
+5.4 & 3.9 & 1.7 & 0.4 & Iris-setosa\\
+4.6 & 3.4 & 1.4 & 0.3 & Iris-setosa\\
+5.0 & 3.4 & 1.5 & 0.2 & Iris-setosa\\
+4.4 & 2.9 & 1.4 & 0.2 & Iris-setosa\\
+4.9 & 3.1 & 1.5 & 0.1 & Iris-setosa\\
+}
+{tab:iris}
+
+\easytab{~$new-threshold$~部分数据}{Part of data set new-threshold}{cccccc}
+{Class & T3-resin & Serum thyroxin & Serum triiodothyronine & TSH & Maximal TSH}
+{
+1 & 107 & 10.1 & 2.2 & 0.9 & 2.7\\
+1 & 113 & 9.9 & 3.1 & 2.0 & 5.9\\
+1 & 127 & 12.9 & 2.4 & 1.4 & 0.6\\
+1 & 109 & 5.3 & 1.6 & 1.4 & 1.5\\
+1 & 105 & 7.3 & 1.5 & 1.5 & -0.1\\
+1 & 105 & 6.1 & 2.1 & 1.4 & 7.0\\
+1 & 110 & 10.4 & 1.6 & 1.6 & 2.7\\
+1 & 114 & 9.9 & 2.4 & 1.5 & 5.7\\
+1 & 106 & 9.4 & 2.2 & 1.5 & 0.0\\
+1 & 107 & 13.0 & 1.1 & 0.9 & 3.1\\
+}
+{tab:thsh}
+
+
+\easytab{~$small-yellow$~部分数据}{Part of data set small-yellow}{ccccc}
+{Color & Size & Act & Age & Inflated}
+{
+YELLOW & SMALL & STRETCH & ADULT & T\\
+YELLOW & SMALL & STRETCH & CHILD & T\\
+YELLOW & SMALL & DIP & ADULT & T\\
+YELLOW & SMALL & DIP & CHILD & T\\
+YELLOW & SMALL & STRETCH & ADULT & T\\
+YELLOW & SMALL & STRETCH & CHILD & T\\
+YELLOW & SMALL & DIP & ADULT & T\\
+YELLOW & SMALL & DIP & CHILD & T\\
+YELLOW & LARGE & STRETCH & ADULT & F\\
+YELLOW & LARGE & STRETCH & CHILD & F\\
+}
+{tab:yellow}
+
+\easytab{~$ctr$~部分数据}{Part of data set ctr}{cccccccccc}
+{x1 & x2 & x3 & x4 & x5 & x6 & x7 & x8 & x9 & y}
+{
+c & 6 & y & E & m & h & h & a & m & m\\
+c & 6 & n & E & m & m & h & ma & m & m\\
+c & 6 & n & E & m & h & h & ma & m & m\\
+c & 4 & y & E & m & h & h & ma & l & h\\
+c & 6 & n & E & m & m & m & ma & m & m\\
+c & 6 & n & B & m & m & m & a & he & lo\\
+c & 6 & n & E & m & m & h & ma & he & lo\\
+s & 4 & n & B & sm & h & lo & ma & l & h\\
+c & 4 & n & B & sm & h & lo & ma & m & m\\
+c & 4 & n & B & sm & h & m & a & m & m\\
+}
+{tab:ctr}
+
+
+\easytab{贷款部分数据}{Part of data set loan}{cccccccc}
+{省份 & 入学 & 生年 & 生月 & 性别 & 院系 & 金额(百元）& 还款}
+{
+四川 & 3 & 1982 & 12 & 男 & 力学与工程学院 & 48 & 到期未还\\
+辽宁 & 4 & 1984 & 2 & 女 & 力学与工程学院 & 54 & 到期未还\\
+辽宁 & 4 & 1985 & 2 & 男 & 力学与工程学院 & 54 & 到期未还\\
+福建 & 2 & 1981 & 11 & 男 & 力学与工程学院 & 46 & 到期还\\
+山西 & 2 & 1984 & 4 & 男 & 力学与工程学院 & 46 & 到期未还\\
+内蒙古 & 4 & 1985 & 10 & 男 & 力学与工程学院 & 54 & 到期前还\\
+辽宁 & 2 & 1983 & 5 & 男 & 力学与工程学院 & 46 & 到期前还\\
+辽宁 & 4 & 1983 & 8 & 男 & 力学与工程学院 & 54 & 到期未还\\
+辽宁 & 4 & 1985 & 11 & 女 & 力学与工程学院 & 54 & 到期未还\\
+辽宁 & 4 & 1986 & 4 & 男 & 力学与工程学院 & 54 & 到期未还\\
+}
+{tab:loan}
+对各数据做实验的整体结果数据~\tabref{tab:rate}，\tabref{tab:count}，\tabref{tab:mrl}~所示：
+
+\easytab{规则覆盖率比较}{Comparison of Covering Rate}{cccccc}
+{数据集 & 经典算法 & JohnsonReducer & Genetic & Holte's 1R & \aName{}}
+{
+iris&&&&& 100\%\\
+new-threshold&&&&& 100\%\\
+yellow-small&&&&& 100\%\\
+ctr&&&&& 100\%\\
+loan&&&&& 100\%\\
+}
+{tab:rate}
+
+
+\easytab{生成规则数比较}{Comparison of Generated Rules}{cccccc}
+{数据集 & 经典算法 & JohnsonReducer & Genetic & Holte's 1R & \aName{}}
+{
+iris&&&&& 13\\
+new-threshold&&&&&\\
+yellow-small&&&&&\\
+ctr&&&&& 9\\
+loan&&&&& 95\\
+}
+{tab:count}
+
+\easytab{\vName{}比较}{Comparison of \vFName{}}{cccccc}
+{数据集 & 经典算法 & JohnsonReducer & Genetic & Holte's 1R & \aName{}}
+{
+iris &&&&& 2.105\\
+new-threshold &&&&&\\
+yellow-small &&&&&\\
+ctr &&&&& 1.095\\
+loan &&&&& 0.145\\
+}
+{tab:mrl}
+
+\section{结论}
+\section{展望}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\beginRef
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliography{myBib,myBib-chinese,Roughsets,haskell}
+\nobibliography*
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\beginThanks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{致谢}
+\addtoc{致谢}
+
+本论文的完成，有太多的人需要感谢。
+
+首先，感谢我的导师李义杰教授，感谢您在两年多的时间里对我的关心、支持和帮助。本文的成
+稿，与您的指导和培育和密不可分的。另外，在研究生学习阶段，您的博学和睿智都让我
+受益匪浅，还有您严谨的治学态度和对科学真理的追求，都让我铭记在心。这两年多来和
+您相处所得的一切，都将是我人生的一笔财富。
+
+其次，感谢电子与信息工程学院的各位领导和老师，还有参加论文评审工作的各位老师。
+我的成长同样也离不开你们的辛勤培养。在学校的这段日子里，我学习和生活的方方面面无不包含在你们的工作和劳动中，谢谢你们。
+
+再次，感谢我的师兄弟们、师姐妹和同学们。在两年多的时间里，遇到很多生活和学习上各种大小
+问题，在这个大家庭里，都很好地得到了解决，我们的友谊会天长地久。尤其感谢我师姐，谢谢你对我说过的每一句话和做过的每一件事，那些日子会是我一生中最珍贵的财富和最美好的回忆。
+
+最后，感谢所有关心着我的人，在硕士期间，有太多的人需要感谢，有忘记提到的，在这
+里也一并表示我最衷心的感谢。
+
+\chapter*{攻读学位期间发表的学术论文及科研成果}
+\addtoc{攻读学位期间发表的学术论文及科研成果}
+\bibentry{roughsetZheLiu}
+
+
+\end{document}
